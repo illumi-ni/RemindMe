@@ -48,6 +48,10 @@ public class MainActivity extends AppCompatActivity {
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
+        FirebaseUser currentUser = mFirebaseAuth.getCurrentUser();
+        updateUI(currentUser);
+
+
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

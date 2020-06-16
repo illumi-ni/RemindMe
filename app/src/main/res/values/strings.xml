@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">Google Integration</string>
+    <string name="app_name">RemindMe</string>
+    <string name="log_out">Log Out</string>
+    <string name="welcome_to_remindme">WELCOME TO REMINDME</string>
 </resources>
