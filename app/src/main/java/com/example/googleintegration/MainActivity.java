@@ -2,13 +2,11 @@ package com.example.googleintegration;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -25,19 +23,18 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-public class MainActivity extends AppCompatActivity {
-    private Button signOutBtn;
+public class MainActivity extends Activity {
     private GoogleSignInClient mGoogleSignInClient;
     private FirebaseAuth mFirebaseAuth;
-    private String Tag = "MainActivity";
     private int RC_SIGN_IN = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getActionBar().hide();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        signOutBtn = findViewById(R.id.signOut);
         SignInButton signInButton = findViewById(R.id.sign_in_button);
         mFirebaseAuth = FirebaseAuth.getInstance();
 
@@ -48,25 +45,22 @@ public class MainActivity extends AppCompatActivity {
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        FirebaseUser currentUser = mFirebaseAuth.getCurrentUser();
-        updateUI(currentUser);
-
-
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 signIn();
             }
         });
+    }
 
-        signOutBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mGoogleSignInClient.signOut();
-                Toast.makeText(MainActivity.this, "You are Logged out", Toast.LENGTH_SHORT).show();
-                signOutBtn.setVisibility(View.INVISIBLE);
-            }
-        });
+    @Override
+    protected void onStart() {
+        super.onStart();
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        if(account != null) {
+            updateUI();
+//            finish();
+        }
     }
 
     private void signIn() {
@@ -86,12 +80,12 @@ public class MainActivity extends AppCompatActivity {
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-            Toast.makeText(MainActivity.this, "signed In Successfully", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "Signed In Please Wait!", Toast.LENGTH_SHORT).show();
             FirebaseGoggleAuth(account);
 
         }
         catch (ApiException e) {
-            Toast.makeText(MainActivity.this, "signed In Failed", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "Google Sign In Failed!", Toast.LENGTH_SHORT).show();
             FirebaseGoggleAuth(null);
         }
     }
@@ -102,25 +96,25 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    Toast.makeText(MainActivity.this, "Successful", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "All Sign In Successful!", Toast.LENGTH_SHORT).show();
                     FirebaseUser user = mFirebaseAuth.getCurrentUser();
-                    updateUI(user);
+                    updateUI();
                 }
                 else{
-                    Toast.makeText(MainActivity.this, "Failed", Toast.LENGTH_SHORT).show();
-                    updateUI(null);
+                    Toast.makeText(MainActivity.this, "All Sign In Failed!", Toast.LENGTH_SHORT).show();
+                    updateUI();
                 }
             }
         });
     }
 
-    private void updateUI(FirebaseUser user){
-        signOutBtn.setVisibility(View.VISIBLE);
+    private void updateUI(){
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
         if(account != null){
-            String name = account.getDisplayName();
-            String email = account.getEmail();
-            Toast.makeText(MainActivity.this, name + email, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(MainActivity.this, "Welcome!", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getApplicationContext(), Home.class);
+            intent.putExtra("user", account);
+            startActivity(intent);
         }
     }
 }
