@@ -1,12 +1,16 @@
 package com.example.googleintegration;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -14,13 +18,20 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class Home extends Activity {
     private GoogleSignInClient mGoogleSignInClient;
+    TextView txtView;
+    ImageView img;
+    NavigationView nav;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+//        getActionBar().show();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
@@ -41,17 +52,22 @@ public class Home extends Activity {
 //            Uri personPhoto = acct.getPhotoUrl();
 
             Toast.makeText(Home.this, "Welcome "+ personName, Toast.LENGTH_SHORT).show();
+            nav = findViewById(R.id.nav);
+            View header = nav.getHeaderView(0);
+
+            txtView = header.findViewById(R.id.name);
+            txtView.setText(personName);
         }
 
-        Button signOutBtn = findViewById(R.id.signOut);
-        signOutBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (v.getId() == R.id.signOut) {
-                    signOut();
-                }
-            }
-        });
+//        Button signOutBtn = findViewById(R.id.signOut);
+//        signOutBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (v.getId() == R.id.signOut) {
+//                    signOut();
+//                }
+//            }
+//        });
     }
 
     private void signOut() {

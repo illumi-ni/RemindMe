@@ -3,7 +3,7 @@
     <item android:drawable="@color/white" />
 
     <item>
-        <bitmap android:src="@drawable/splashLogo"
+        <bitmap android:src="@drawable/splash"
             android:gravity="center"/>
     </item>
 

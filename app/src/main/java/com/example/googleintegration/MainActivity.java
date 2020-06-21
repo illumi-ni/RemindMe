@@ -2,6 +2,7 @@ package com.example.googleintegration;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -30,7 +31,7 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        getActionBar().hide();
+//        getActionBar().hide();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -58,6 +59,7 @@ public class MainActivity extends Activity {
         super.onStart();
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         if(account != null) {
+            finish();
             updateUI();
 //            finish();
         }
