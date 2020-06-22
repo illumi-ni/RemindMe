@@ -115,7 +115,7 @@ public class MainActivity extends Activity {
         if(account != null){
 //            Toast.makeText(MainActivity.this, "Welcome!", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getApplicationContext(), Home.class);
-            intent.putExtra("user", account);
+//            intent.putExtra("user", account);
             startActivity(intent);
         }
     }

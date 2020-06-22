@@ -3,6 +3,7 @@ package com.example.googleintegration;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -10,7 +11,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -21,11 +24,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class Home extends Activity {
+public class Home extends AppCompatActivity {
     private GoogleSignInClient mGoogleSignInClient;
-    TextView txtView;
-    ImageView img;
-    NavigationView nav;
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mToggle;
+    private TextView txtView;
+    private ImageView img;
+    private NavigationView nav;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -41,6 +46,12 @@ public class Home extends Activity {
                 .build();
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.draw);
+        mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
+        mDrawerLayout.addDrawerListener(mToggle);
+        mToggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if (acct != null) {
@@ -68,6 +79,14 @@ public class Home extends Activity {
 //                }
 //            }
 //        });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(mToggle.onOptionsItemSelected(item)){
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void signOut() {
