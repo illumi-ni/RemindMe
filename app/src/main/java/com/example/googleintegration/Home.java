@@ -1,11 +1,9 @@
 package com.example.googleintegration;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +19,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -69,6 +68,15 @@ public class Home extends AppCompatActivity {
             txtView = header.findViewById(R.id.name);
             txtView.setText(personName);
         }
+
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(Home.this, "Added New Task", Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
 //        Button signOutBtn = findViewById(R.id.signOut);
 //        signOutBtn.setOnClickListener(new View.OnClickListener() {

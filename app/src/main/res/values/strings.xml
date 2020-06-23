@@ -2,11 +2,6 @@
     <string name="app_name">RemindMe</string>
     <string name="welcome_to_remindme">WELCOME TO REMINDME</string>
     <string name="logo">LOGO</string>
-    <string name="title_activity_home2">Home2</string>
-    <string name="update_task">Update Task</string>
-    <string name="delete_task">Delete Task</string>
-    <string name="view_task">View Task</string>
-    <string name="hello">Hello</string>
     <string name="today">Today</string>
     <string name="upcoming">Upcoming</string>
     <string name="achievements">Achievements</string>
@@ -15,5 +10,5 @@
     <string name="todo">TODO</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
-
+    <string name="add_new_task">add_new_task</string>
 </resources>

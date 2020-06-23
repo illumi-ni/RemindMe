@@ -2,7 +2,6 @@ package com.example.googleintegration;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -113,9 +112,7 @@ public class MainActivity extends Activity {
     private void updateUI(){
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
         if(account != null){
-//            Toast.makeText(MainActivity.this, "Welcome!", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getApplicationContext(), Home.class);
-//            intent.putExtra("user", account);
             startActivity(intent);
         }
     }
