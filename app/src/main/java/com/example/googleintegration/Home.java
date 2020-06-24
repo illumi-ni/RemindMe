@@ -1,6 +1,7 @@
 package com.example.googleintegration;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -74,6 +75,9 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(Home.this, "Added New Task", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(getApplicationContext(), AddNew.class);
+                startActivity(i);
+                finish();
             }
         });
 
