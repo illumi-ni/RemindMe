@@ -11,4 +11,6 @@
     <string name="open">Open</string>
     <string name="close">Close</string>
     <string name="add_new_task">add_new_task</string>
+    <string name="what_is_to_be_done">What is to be done?</string>
+    <string name="enter_task_here">Enter Task here..</string>
 </resources>

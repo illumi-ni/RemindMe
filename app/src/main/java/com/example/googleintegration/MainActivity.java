@@ -30,7 +30,7 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-//        getActionBar().hide();
+        getActionBar().hide();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -60,7 +60,6 @@ public class MainActivity extends Activity {
         if(account != null) {
             finish();
             updateUI();
-//            finish();
         }
     }
 

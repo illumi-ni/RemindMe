@@ -24,7 +24,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class Home extends AppCompatActivity {
+public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private GoogleSignInClient mGoogleSignInClient;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
@@ -35,7 +35,6 @@ public class Home extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-//        getActionBar().show();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
@@ -74,23 +73,12 @@ public class Home extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(Home.this, "Added New Task", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(getApplicationContext(), AddNew.class);
                 startActivity(i);
-                finish();
             }
         });
 
-
-//        Button signOutBtn = findViewById(R.id.signOut);
-//        signOutBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (v.getId() == R.id.signOut) {
-//                    signOut();
-//                }
-//            }
-//        });
+        setNavigationViewListener();
     }
 
     @Override
@@ -107,8 +95,36 @@ public class Home extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 Toast.makeText(Home.this, "Logged Out!", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(Home.this, MainActivity.class);
+                startActivity(i);
                 finish();
             }
         });
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.menu_today:
+                //code
+
+            case R.id.menu_upcoming:
+                //code
+
+            case R.id.menu_achievements:
+                //code
+
+            case R.id.menu_settings:
+                //code
+
+            case R.id.menu_logout:
+                signOut();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void setNavigationViewListener() {
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav);
+        navigationView.setNavigationItemSelectedListener(this);
     }
 }
