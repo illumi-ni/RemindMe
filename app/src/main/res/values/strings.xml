@@ -13,4 +13,7 @@
     <string name="add_new_task">add_new_task</string>
     <string name="what_is_to_be_done">What is to be done?</string>
     <string name="enter_task_here">Enter Task here..</string>
+    <string name="project">Project</string>
+    <string name="select_time">SELECT TIME</string>
+    <string name="select_date">SELECT DATE</string>
 </resources>

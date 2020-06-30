@@ -2,6 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/menu_today" android:title="@string/today" android:icon="@drawable/ic_today"/>
     <item android:id="@+id/menu_upcoming" android:title="@string/upcoming" android:icon="@drawable/ic_upcoming"/>
+    <item android:id="@+id/menu_project" android:title="@string/project"/>
     <item android:id="@+id/menu_achievements" android:title="@string/achievements" android:icon="@drawable/ic_achievement"/>
     <item android:id="@+id/menu_settings" android:title="@string/settings" android:icon="@drawable/ic_setting"/>
     <item android:id="@+id/menu_logout" android:title="@string/logout" android:icon="@drawable/ic_logout"/>

@@ -1,6 +1,7 @@
 package com.example.googleintegration;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -31,6 +33,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     private TextView txtView;
     private ImageView img;
     private NavigationView nav;
+    AlertDialog.Builder builder;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -118,13 +121,39 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 //code
 
             case R.id.menu_logout:
-                signOut();
+                builder = new AlertDialog.Builder(this);
+
+
+                //Setting message manually and performing action on button click
+                builder.setMessage("Do you want to close this application ?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                finish();
+                                signOut();
+                                Toast.makeText(getApplicationContext(), "you choose yes action for RemindMe",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                //  Action for 'NO' Button
+                                dialog.cancel();
+                                Toast.makeText(getApplicationContext(), "you choose no action for RemindMe",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                //Creating dialog box
+                AlertDialog alert = builder.create();
+                //Setting the title manually
+                alert.setTitle("RemindMe");
+                alert.show();
         }
         return super.onOptionsItemSelected(item);
     }
 
     private void setNavigationViewListener() {
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav);
+        NavigationView navigationView = findViewById(R.id.nav);
         navigationView.setNavigationItemSelectedListener(this);
     }
 }

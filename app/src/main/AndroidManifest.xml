@@ -8,18 +8,14 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
-
-        <activity android:name=".AddNew"
-            android:theme="@style/Theme.AppCompat.Light"
-            android:parentActivityName=".Home">
-        </activity>
-
+        <activity
+            android:name=".AddNew"
+            android:parentActivityName=".Home"
+            android:theme="@style/Theme.AppCompat.Light" />
         <activity
             android:name=".Home"
             android:theme="@style/Theme.AppCompat" />
-
         <activity android:name=".MainActivity" />
-
         <activity
             android:name=".SplashScreen"
             android:theme="@style/SplashScreen">
@@ -31,4 +27,5 @@
             </intent-filter>
         </activity>
     </application>
+
 </manifest>
