@@ -150,6 +150,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 alert.show();
         }
         return super.onOptionsItemSelected(item);
+        //Hello
     }
 
     private void setNavigationViewListener() {
