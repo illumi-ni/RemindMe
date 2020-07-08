@@ -39,6 +39,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //This is home
+        //This is truly home
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
