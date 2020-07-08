@@ -38,7 +38,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+        //This is home
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
