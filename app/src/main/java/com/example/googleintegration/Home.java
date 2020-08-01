@@ -152,7 +152,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         return super.onOptionsItemSelected(item);
         //Hello
     }
-
+// Something
     private void setNavigationViewListener() {
         NavigationView navigationView = findViewById(R.id.nav);
         navigationView.setNavigationItemSelectedListener(this);
