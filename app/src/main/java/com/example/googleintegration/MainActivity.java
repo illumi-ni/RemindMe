@@ -107,7 +107,7 @@ public class MainActivity extends Activity {
             }
         });
     }
-
+//update UI
     private void updateUI(){
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
         if(account != null){
