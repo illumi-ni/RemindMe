@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CalendarView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,8 +33,10 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     private ActionBarDrawerToggle mToggle;
     private TextView txtView;
     private ImageView img;
+    private CalendarView calenderView;
     private NavigationView nav;
     AlertDialog.Builder builder;
+
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -71,6 +74,14 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
             txtView = header.findViewById(R.id.name);
             txtView.setText(personName);
         }
+
+        calenderView= findViewById(R.id.calendar);
+        calenderView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
+                String date= i + "/" + i1 + "/" + i2 + "/";
+            }
+        });
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
