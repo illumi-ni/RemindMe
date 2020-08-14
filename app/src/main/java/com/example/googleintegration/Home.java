@@ -91,7 +91,6 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 startActivity(i);
             }
         });
-
         setNavigationViewListener();
     }
 
@@ -121,42 +120,38 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         switch(item.getItemId()){
             case R.id.menu_today:
                 //code
+                break;
 
             case R.id.menu_upcoming:
                 //code
+                break;
 
             case R.id.menu_achievements:
                 //code
+                break;
 
             case R.id.menu_settings:
                 //code
+                break;
 
             case R.id.menu_logout:
                 builder = new AlertDialog.Builder(this);
-
-
-                //Setting message manually and performing action on button click
-                builder.setMessage("Do you want to close this application ?")
+                builder.setMessage("Are you sure you want to logout?")
                         .setCancelable(false)
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 finish();
                                 signOut();
-                                Toast.makeText(getApplicationContext(), "you choose yes action for RemindMe",
+                                Toast.makeText(getApplicationContext(), "Logged out!",
                                         Toast.LENGTH_SHORT).show();
                             }
                         })
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                //  Action for 'NO' Button
                                 dialog.cancel();
-                                Toast.makeText(getApplicationContext(), "you choose no action for RemindMe",
-                                        Toast.LENGTH_SHORT).show();
                             }
                         });
-                //Creating dialog box
                 AlertDialog alert = builder.create();
-                //Setting the title manually
                 alert.setTitle("RemindMe");
                 alert.show();
         }
