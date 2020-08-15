@@ -13,6 +13,17 @@
     <string name="add_new_task">add_new_task</string>
     <string name="what_is_to_be_done">What is to be done?</string>
     <string name="enter_task_here">Enter Task here..</string>
+    <string name="due_date">Due date</string>
+    <string name="time">Time</string>
+    <string name="repeat">Repeat</string>
+    <string-array name="repeat">
+        <item>Never</item>
+        <item>Every day</item>
+        <item>Every week</item>
+        <item>Every month</item>
+        <item>Every year</item>
+    </string-array>
+    <string name="desc">Task description</string>
     <string name="project">Project</string>
     <string name="select_time">SELECT TIME</string>
     <string name="select_date">SELECT DATE</string>
