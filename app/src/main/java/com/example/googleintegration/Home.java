@@ -108,6 +108,11 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
+            case R.id.menu_profile:
+                Intent i = new Intent(this, Profile.class);
+                this.startActivity(i);
+                break;
+
             case R.id.menu_today:
                 //code
 
