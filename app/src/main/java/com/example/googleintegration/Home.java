@@ -26,6 +26,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.squareup.picasso.Picasso;
 
 public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private GoogleSignInClient mGoogleSignInClient;
@@ -70,6 +71,9 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
             Toast.makeText(Home.this, "Welcome "+ personName, Toast.LENGTH_SHORT).show();
             nav = findViewById(R.id.nav);
             View header = nav.getHeaderView(0);
+
+            img = header.findViewById(R.id.headerProfImg);
+            Picasso.get().load(acct.getPhotoUrl()).placeholder(R.drawable.userimg).into(img);
 
             txtView = header.findViewById(R.id.name);
             txtView.setText(personName);

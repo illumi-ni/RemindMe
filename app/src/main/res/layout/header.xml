@@ -2,14 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="160dp"
-    android:background="@color/mineshaft"
+    android:background="@drawable/gradientprofile1"
     android:orientation="vertical"
     android:padding="20dp">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="75dp"
         android:layout_height="75dp"
-        android:contentDescription="@string/todo" />
+        android:id="@+id/headerProfImg" />
 
     <TextView
         android:id="@+id/name"
