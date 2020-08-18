@@ -2,6 +2,11 @@
     <!-- Base application theme. -->
     <style name="SplashScreen" parent="Theme.MaterialComponents.NoActionBar">
         <item name="android:windowBackground">@drawable/background_splashscreen</item>
-
     </style>
+
+    <style name="CalenderViewCustom" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">@color/mineshaft</item>
+        <item name="colorPrimary">@color/black</item>
+    </style>
+
 </resources>

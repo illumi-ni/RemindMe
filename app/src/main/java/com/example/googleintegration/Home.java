@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CalendarView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +26,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.squareup.picasso.Picasso;
 
 public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private GoogleSignInClient mGoogleSignInClient;
@@ -32,8 +34,10 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     private ActionBarDrawerToggle mToggle;
     private TextView txtView;
     private ImageView img;
+    private CalendarView calenderView;
     private NavigationView nav;
     AlertDialog.Builder builder;
+
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -68,9 +72,20 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
             nav = findViewById(R.id.nav);
             View header = nav.getHeaderView(0);
 
+            img = header.findViewById(R.id.headerProfImg);
+            Picasso.get().load(acct.getPhotoUrl()).placeholder(R.drawable.userimg).into(img);
+
             txtView = header.findViewById(R.id.name);
             txtView.setText(personName);
         }
+
+        calenderView= findViewById(R.id.calendar);
+        calenderView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
+                String date= i + "/" + i1 + "/" + i2 + "/";
+            }
+        });
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -80,7 +95,6 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 startActivity(i);
             }
         });
-
         setNavigationViewListener();
     }
 
@@ -108,44 +122,45 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
+            case R.id.menu_profile:
+                Intent i = new Intent(this, Profile.class);
+                this.startActivity(i);
+                break;
+
             case R.id.menu_today:
                 //code
+                break;
 
             case R.id.menu_upcoming:
                 //code
+                break;
 
             case R.id.menu_achievements:
                 //code
+                break;
 
             case R.id.menu_settings:
                 //code
+                break;
 
             case R.id.menu_logout:
                 builder = new AlertDialog.Builder(this);
-
-
-                //Setting message manually and performing action on button click
-                builder.setMessage("Do you want to close this application ?")
+                builder.setMessage("Are you sure you want to logout?")
                         .setCancelable(false)
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 finish();
                                 signOut();
-                                Toast.makeText(getApplicationContext(), "you choose yes action for RemindMe",
+                                Toast.makeText(getApplicationContext(), "Logged out!",
                                         Toast.LENGTH_SHORT).show();
                             }
                         })
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                //  Action for 'NO' Button
                                 dialog.cancel();
-                                Toast.makeText(getApplicationContext(), "you choose no action for RemindMe",
-                                        Toast.LENGTH_SHORT).show();
                             }
                         });
-                //Creating dialog box
                 AlertDialog alert = builder.create();
-                //Setting the title manually
                 alert.setTitle("RemindMe");
                 alert.show();
         }
