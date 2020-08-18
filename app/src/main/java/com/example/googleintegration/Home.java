@@ -38,9 +38,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //This is home
-        //This is truly home
-        //This is
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
@@ -125,8 +123,6 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
             case R.id.menu_logout:
                 builder = new AlertDialog.Builder(this);
 
-
-                //Setting message manually and performing action on button click
                 builder.setMessage("Do you want to close this application ?")
                         .setCancelable(false)
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -139,20 +135,17 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                         })
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                //  Action for 'NO' Button
                                 dialog.cancel();
                                 Toast.makeText(getApplicationContext(), "you choose no action for RemindMe",
                                         Toast.LENGTH_SHORT).show();
                             }
                         });
-                //Creating dialog box
                 AlertDialog alert = builder.create();
-                //Setting the title manually
+
                 alert.setTitle("RemindMe");
                 alert.show();
         }
         return super.onOptionsItemSelected(item);
-        //Hello
     }
 
     private void setNavigationViewListener() {
