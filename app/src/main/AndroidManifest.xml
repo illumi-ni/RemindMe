@@ -10,6 +10,11 @@
         android:supportsRtl="true">
 
         <activity
+            android:name=".TaskList"
+            android:parentActivityName=".Home"
+            android:theme="@style/Theme.AppCompat.Light" />
+
+        <activity
             android:name=".AddNew"
             android:parentActivityName=".Home"
             android:theme="@style/Theme.AppCompat.Light" />

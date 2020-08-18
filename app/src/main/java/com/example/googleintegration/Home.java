@@ -124,6 +124,8 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
             case R.id.menu_upcoming:
                 //code
+                Intent intent = new Intent(this, TaskList.class);
+                this.startActivity(intent);
                 break;
 
             case R.id.menu_achievements:
@@ -155,6 +157,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 alert.setTitle("RemindMe");
                 alert.show();
         }
+
         return super.onOptionsItemSelected(item);
         //Hello
     }

@@ -32,8 +32,8 @@
         app:layout_constraintHorizontal_bias="0.463"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lblTaskName"
-        app:layout_constraintVertical_bias="0.0" />
-
+        app:layout_constraintVertical_bias="0.0"
+        app:errorEnabled="true"/>
 
     <TextView
         android:id="@+id/lbldate"
@@ -62,7 +62,8 @@
         app:layout_constraintHorizontal_bias="0.151"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtTaskName"
-        app:layout_constraintVertical_bias="0.104" />
+        app:layout_constraintVertical_bias="0.104"
+        app:errorEnabled="true"/>
 
     <TextView
         android:id="@+id/lbltime"
@@ -90,7 +91,8 @@
         app:layout_constraintHorizontal_bias="0.151"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/in_date"
-        app:layout_constraintVertical_bias="0.121" />
+        app:layout_constraintVertical_bias="0.121"
+        app:errorEnabled="true"/>
 
     <TextView
         android:id="@+id/lblspinner"
@@ -117,7 +119,8 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lblspinner"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        app:errorEnabled="true"/>
 
     <TextView
         android:id="@+id/lbldesc"
@@ -144,7 +147,8 @@
         app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lblTaskName"
-        app:layout_constraintVertical_bias="0.733" />
+        app:layout_constraintVertical_bias="0.733"
+        app:errorEnabled="true"/>
 
     <Button
         android:id="@+id/btn_time"

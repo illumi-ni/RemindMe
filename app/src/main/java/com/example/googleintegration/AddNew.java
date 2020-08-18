@@ -10,12 +10,16 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -29,7 +33,7 @@ import java.util.Map;
 import java.util.Objects;
 
 public class AddNew extends AppCompatActivity {
-    Button btnDatePicker, btnTimePicker, btnSave;
+    private Button btnDatePicker, btnTimePicker, btnSave;
     private EditText txtDate, txtTime, txtTask, txtTaskDesc;
     private int mYear, mMonth, mDay, mHour, mMinute;
     private Spinner spinner;
@@ -104,12 +108,13 @@ public class AddNew extends AppCompatActivity {
                 mDatabase = FirebaseDatabase.getInstance().getReference();
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                assert user != null;
                 userId = user.getUid();
 
                 String date = txtDate.getText().toString();
                 String time = txtTime.getText().toString();
                 String task = txtTask.getText().toString();
-                String text = spinner.getSelectedItem().toString();
+                String repeat = spinner.getSelectedItem().toString();
                 String desc = txtTaskDesc.getText().toString();
 
                 Map<String, Object> remainder = new HashMap<>();
@@ -117,7 +122,7 @@ public class AddNew extends AppCompatActivity {
                 remainder.put("task", task);
                 remainder.put("date", date);
                 remainder.put("time", time);
-                remainder.put("repeat", text);
+                remainder.put("repeat", repeat);
                 remainder.put("description", desc);
 
                 db.collection("remainder").add(remainder).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -132,5 +137,6 @@ public class AddNew extends AppCompatActivity {
                 }});
             }
         });
+
     }
 }
