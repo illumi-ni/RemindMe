@@ -27,7 +27,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.squareup.picasso.Picasso;
+//import com.squareup.picasso.Picasso;
 
 import java.util.regex.Pattern;
 
@@ -69,7 +69,7 @@ public class Profile extends AppCompatActivity{
             txtemail.setText(personEmail);
 
             imgprofile = findViewById(R.id.imgprofile);
-            Picasso.get().load(acct.getPhotoUrl()).placeholder(R.drawable.userimg).into(imgprofile);
+//            Picasso.get().load(acct.getPhotoUrl()).placeholder(R.drawable.userimg).into(imgprofile);
 
         }
 
