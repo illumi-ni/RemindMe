@@ -30,7 +30,7 @@ public class TaskList extends AppCompatActivity {
     }
 
     private void setUpRecyclerView(){
-        Query query = taskRef.orderBy("time", Query.Direction.DESCENDING);
+        Query query = taskRef.orderBy("date", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<Note> options = new FirestoreRecyclerOptions.Builder<Note>()
                 .setQuery(query, Note.class)
                 .build();

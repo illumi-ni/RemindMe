@@ -20,7 +20,7 @@ public class NoteAdapter extends FirestoreRecyclerAdapter<Note, NoteAdapter.Note
     @Override
     protected void onBindViewHolder(@NonNull NoteHolder holder, int position, @NonNull Note model) {
         holder.textViewTask.setText(model.getTask());
-        holder.textViewTime.setText(model.getTime());
+        holder.textViewDate.setText(model.getDate());
     }
 
     @NonNull
@@ -31,12 +31,12 @@ public class NoteAdapter extends FirestoreRecyclerAdapter<Note, NoteAdapter.Note
     }
 
     class NoteHolder extends RecyclerView.ViewHolder{
-        TextView textViewTask, textViewTime;
+        TextView textViewTask, textViewDate;
 
         public NoteHolder(@NonNull View itemView) {
             super(itemView);
             textViewTask = itemView.findViewById(R.id.textTask);
-            textViewTime = itemView.findViewById(R.id.textTime);
+            textViewDate = itemView.findViewById(R.id.textDate);
         }
     }
 }
