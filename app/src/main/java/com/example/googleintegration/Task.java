@@ -1,14 +1,14 @@
 package com.example.googleintegration;
 
-public class Note {
+public class Task {
     private String task;
     private String date;
 
-    public Note(){
+    public Task(){
         //empty constructor needed
     }
 
-    public Note(String task, String date){
+    public Task(String task, String date){
         this.task = task;
         this.date = date;
     }
