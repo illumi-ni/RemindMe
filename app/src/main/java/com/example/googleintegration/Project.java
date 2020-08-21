@@ -6,8 +6,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.view.View;
+import android.widget.TextView;
 
 public class Project extends AppCompatActivity {
+    private TextView prtname;
+    private TextView prtdesc;
+    private Button btnprt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,15 +19,20 @@ public class Project extends AppCompatActivity {
         setContentView(R.layout.activity_project);
         setTitle("Project");
 
+        prtname = (TextView) findViewById(R.id.txtprjtname);
+        prtdesc = (TextView) findViewById(R.id.txtprjtdesc);
+
         //opens project form
         Button btnpr = findViewById(R.id.btnproject);
         btnpr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Project.this, CreateProject.class);
-                startActivity(i);
+               openDialog();
             }
         });
-
+    }
+    public void openDialog(){
+        CreateProject createProject = new CreateProject();
+        createProject.show(getSupportFragmentManager(), "create project");
     }
 }
