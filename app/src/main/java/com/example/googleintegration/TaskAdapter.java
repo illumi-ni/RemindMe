@@ -33,7 +33,7 @@ public class TaskAdapter extends FirestoreRecyclerAdapter<Task, TaskAdapter.Task
         return new TaskHolder(v);
     }
 
-    class TaskHolder extends RecyclerView.ViewHolder{
+    static class TaskHolder extends RecyclerView.ViewHolder{
         public TextView textViewTask, textViewDate;
         public ImageView mDeleteTask;
 
