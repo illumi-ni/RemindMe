@@ -4,16 +4,22 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -24,11 +30,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class AddNew extends AppCompatActivity {
-    Button btnDatePicker, btnTimePicker, btnSave;
-    private EditText txtDate, txtTime, txtTask;
+    private Button btnDatePicker, btnTimePicker, btnSave;
+    private EditText txtDate, txtTime, txtTask, txtTaskDesc;
     private int mYear, mMonth, mDay, mHour, mMinute;
+    private Spinner spinner;
     private DatabaseReference mDatabase;
     private String userId;
 
@@ -36,7 +44,7 @@ public class AddNew extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         setTitle("New Task");
 
         btnDatePicker = findViewById(R.id.btn_date);
@@ -44,6 +52,8 @@ public class AddNew extends AppCompatActivity {
         txtDate = findViewById(R.id.in_date);
         txtTime = findViewById(R.id.in_time);
         txtTask = findViewById(R.id.txtTaskName);
+        spinner= findViewById(R.id.spinner);
+        txtTaskDesc = findViewById(R.id.txtdesc);
         btnSave = findViewById(R.id.btn_save);
 
         btnDatePicker.setOnClickListener(new View.OnClickListener() {
@@ -87,23 +97,33 @@ public class AddNew extends AppCompatActivity {
             }
         });
 
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(AddNew.this,
+                android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.repeat));
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mDatabase = FirebaseDatabase.getInstance().getReference();
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                assert user != null;
                 userId = user.getUid();
 
                 String date = txtDate.getText().toString();
                 String time = txtTime.getText().toString();
                 String task = txtTask.getText().toString();
+                String repeat = spinner.getSelectedItem().toString();
+                String desc = txtTaskDesc.getText().toString();
 
                 Map<String, Object> remainder = new HashMap<>();
                 remainder.put("userId", userId);
                 remainder.put("task", task);
                 remainder.put("date", date);
                 remainder.put("time", time);
+                remainder.put("repeat", repeat);
+                remainder.put("description", desc);
 
                 db.collection("remainder").add(remainder).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
@@ -117,5 +137,6 @@ public class AddNew extends AppCompatActivity {
                 }});
             }
         });
+
     }
 }

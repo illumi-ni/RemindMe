@@ -8,14 +8,13 @@ import android.os.Handler;
 import androidx.annotation.Nullable;
 
 public class SplashScreen extends Activity {
-
+//Splashscreen
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-
                 Intent i = new Intent(SplashScreen.this, MainActivity.class);
                 startActivity(i);
                 finish();
