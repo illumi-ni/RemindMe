@@ -69,9 +69,8 @@ public class Profile extends AppCompatActivity{
             txtemail.setText(personEmail);
 
             imgprofile = findViewById(R.id.imgprofile);
-            Picasso.get().load(acct.getPhotoUrl()).placeholder(R.drawable.userimg).into(imgprofile);
+            Picasso.get().load(acct.getPhotoUrl()).placeholder(R.drawable.ic_user).into(imgprofile);
 
         }
-
     }
 }

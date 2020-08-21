@@ -73,7 +73,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
             View header = nav.getHeaderView(0);
 
             img = header.findViewById(R.id.headerProfImg);
-            Picasso.get().load(acct.getPhotoUrl()).placeholder(R.drawable.userimg).into(img);
+            Picasso.get().load(acct.getPhotoUrl()).placeholder(R.drawable.ic_user).into(img);
 
             txtView = header.findViewById(R.id.name);
             txtView.setText(personName);
@@ -125,6 +125,11 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
             case R.id.menu_profile:
                 Intent i = new Intent(this, Profile.class);
                 this.startActivity(i);
+                break;
+
+            case R.id.menu_project:
+                Intent ipr = new Intent(this, Project.class);
+                this.startActivity(ipr);
                 break;
 
             case R.id.menu_today:
