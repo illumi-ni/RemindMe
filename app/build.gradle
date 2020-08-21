@@ -42,6 +42,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore:21.5.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'com.firebaseui:firebase-ui-database:4.3.2'
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+
 
     // FirebaseUI for Cloud Firestore
     implementation 'com.firebaseui:firebase-ui-firestore:6.3.0'

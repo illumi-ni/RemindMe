@@ -1,23 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
-    android:layout_height="160dp"
-    android:background="@color/mineshaft"
-    android:orientation="vertical"
-    android:padding="20dp">
+    android:layout_height="220dp"
+    android:background="@color/mineshaft">
 
     <ImageView
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:contentDescription="@string/todo" />
+        android:id="@+id/profilePhoto"
+        android:layout_width="104dp"
+        android:layout_height="95dp"
+        android:contentDescription="@string/imgUserProfile"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.188"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.328" />
 
     <TextView
-        android:id="@+id/name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:id="@+id/userName"
+        android:layout_width="180dp"
+        android:layout_height="45dp"
         android:textColor="@color/white"
         android:textSize="16sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.251"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profilePhoto"
+        app:layout_constraintVertical_bias="0.589" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

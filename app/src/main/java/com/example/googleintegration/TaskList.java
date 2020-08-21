@@ -1,12 +1,19 @@
 package com.example.googleintegration;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -38,6 +45,42 @@ public class TaskList extends AppCompatActivity {
             }
         });
         setUpRecyclerView();
+
+        final SwipeRefreshLayout mSwipe = findViewById(R.id.swipe_container);
+        mSwipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(mSwipe.isRefreshing()) {
+                            mSwipe.setRefreshing(false);
+                        }
+                    }
+                }, 1000);
+                if(isConnected()) {
+                    setUpRecyclerView();
+                    adapter.startListening();
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "Not Connected", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    public boolean isConnected() {
+        boolean connected = false;
+        try {
+            ConnectivityManager cm = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo nInfo = cm.getActiveNetworkInfo();
+            connected = nInfo != null && nInfo.isAvailable() && nInfo.isConnected();
+            return connected;
+        } catch (Exception e) {
+            Log.e("Connectivity Exception", e.getMessage());
+        }
+        return connected;
     }
 
     private void setUpRecyclerView(){

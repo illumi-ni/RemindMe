@@ -14,7 +14,6 @@
     <string name="what_is_to_be_done">What is to be done?</string>
     <string name="enter_task_here">Enter Task here..</string>
     <string name="due_date">Due date</string>
-    <string name="time">Time</string>
     <string name="repeat">Repeat</string>
     <string-array name="repeat">
         <item>Never</item>
@@ -29,4 +28,8 @@
     <string name="select_date">SELECT DATE</string>
     <string name="save">Save</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="description">Description</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="imgUserProfile">Profile Photo</string>
 </resources>
