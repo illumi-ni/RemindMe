@@ -1,7 +1,11 @@
 package com.example.googleintegration;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,7 +18,7 @@ import com.google.firebase.firestore.Query;
 
 import java.util.Objects;
 
-public class TaskList extends AppCompatActivity {
+public class TaskList extends AppCompatActivity implements TaskAdapter.OnTaskListener {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference taskRef = db.collection("remainder");
 
@@ -29,6 +33,26 @@ public class TaskList extends AppCompatActivity {
         setUpRecyclerView();
     }
 
+//    private void showDeleteDataDialog(){
+//        AlertDialog.Builder builder = new AlertDialog.Builder(TaskList.this);
+//        builder.setTitle("Delete");
+//        builder.setMessage("Are you sure you want to delete the task?")
+//        //set positive/Yes
+//                .setCancelable(false)
+//                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            //User pressed
+//                            Toast.makeText(getApplicationContext(), "Logged out!",
+//                                    Toast.LENGTH_SHORT).show();
+//                        }
+//                    })
+//                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            dialog.cancel();
+//                        }
+//                    });
+//    }
+
     private void setUpRecyclerView(){
         Query query = taskRef.whereEqualTo("userId", Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
                 .orderBy("date", Query.Direction.DESCENDING);
@@ -36,7 +60,7 @@ public class TaskList extends AppCompatActivity {
                 .setQuery(query, Task.class)
                 .build();
 
-        adapter = new TaskAdapter(options);
+        adapter = new TaskAdapter(options, this);
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -53,5 +77,11 @@ public class TaskList extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         adapter.stopListening();
+    }
+
+    @Override
+    public void onTaskClick(int position) {
+        Intent intent = new Intent(this, UpdateTask.class);
+        startActivity(intent);
     }
 }
