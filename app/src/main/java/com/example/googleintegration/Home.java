@@ -74,9 +74,23 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
             img = header.findViewById(R.id.headerProfImg);
             Picasso.get().load(acct.getPhotoUrl()).placeholder(R.drawable.ic_user).into(img);
+            img.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(getApplicationContext(), Profile.class);
+                    startActivity(i);
+                }
+            });
 
             txtView = header.findViewById(R.id.name);
             txtView.setText(personName);
+            txtView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(getApplicationContext(), Profile.class);
+                    startActivity(i);
+                }
+            });
         }
 
         calenderView= findViewById(R.id.calendar);
