@@ -28,5 +28,6 @@
     <string name="select_time">SELECT TIME</string>
     <string name="select_date">SELECT DATE</string>
     <string name="save">Save</string>
+    <string name="blank_project_fragment">blank project fragment</string>
     <!--    <string name="default_web_client_id" />-->
 </resources>
