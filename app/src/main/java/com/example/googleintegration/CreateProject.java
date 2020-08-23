@@ -21,6 +21,7 @@ public class CreateProject extends AppCompatDialogFragment {
 
     private EditText txtprojectname;
     private EditText txtxprojectdesc;
+    
     private ProjectActivity mprojectActivity;
 
 

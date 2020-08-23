@@ -24,6 +24,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.gson.internal.$Gson$Preconditions;
 
 import java.util.Objects;
 
@@ -61,6 +62,13 @@ public class Project extends AppCompatActivity implements ProjectActivity {
             protected void onBindViewHolder(@NonNull ProjectViewHolder holder, int position, @NonNull ProjectList model) {
                 holder.listprojectname.setText(model.getProjectname());
                 holder.listprojectdesc.setText(model.getProjectdesc());
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(v.getContext(), ProjectTask.class);
+                        startActivity(intent);
+                    }
+                });
             }
         };
         mProjectlist.setHasFixedSize(true);
@@ -108,6 +116,7 @@ public class Project extends AppCompatActivity implements ProjectActivity {
             }
         });
     }
+
 
     private class ProjectViewHolder extends RecyclerView.ViewHolder {
         private TextView listprojectname;

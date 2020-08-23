@@ -16,15 +16,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
         <activity
-            android:name=".CreateProject"
+            android:name=".ProjectTask"
             android:parentActivityName=".Project"
-            android:theme="@style/Theme.AppCompat.Light"/>
-
+            android:theme="@style/Theme.AppCompat.Light" />
+<!--        <activity-->
+<!--            android:name=".CreateProject"-->
+<!--            android:parentActivityName=".Project"-->
+<!--            android:theme="@style/Theme.AppCompat.Light" />-->
         <activity
             android:name=".Project"
             android:parentActivityName=".Home"
             android:theme="@style/Theme.AppCompat.Light" />
-
         <activity
             android:name=".Profile"
             android:parentActivityName=".Home"
