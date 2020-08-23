@@ -43,6 +43,39 @@
             android:layout_marginStart="8dp"
             android:layout_below="@id/textTask"/>
 
+        <TextView
+            android:id="@+id/textTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Time"
+            android:textSize="15sp"
+            android:textColor="#a9a9a9"
+            android:layout_toEndOf="@id/textDate"
+            android:layout_marginStart="8dp"
+            android:layout_below="@id/textTask"/>
+
+        <TextView
+            android:id="@+id/textRepeat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Repeat"
+            android:textSize="15sp"
+            android:textColor="#a9a9a9"
+            android:layout_toEndOf="@id/textTime"
+            android:layout_marginStart="8dp"
+            android:layout_below="@id/textTask"/>
+
+        <TextView
+            android:id="@+id/textDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Desc"
+            android:textSize="15sp"
+            android:textColor="#a9a9a9"
+            android:layout_toEndOf="@id/textRepeat"
+            android:layout_marginStart="8dp"
+            android:layout_below="@id/textTask"/>
+
         <ImageView
             android:id="@+id/deleteIcon"
             android:layout_width="45dp"

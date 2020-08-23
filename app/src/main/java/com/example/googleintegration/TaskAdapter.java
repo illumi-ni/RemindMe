@@ -15,77 +15,80 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 public class TaskAdapter extends FirestoreRecyclerAdapter<Task, TaskAdapter.TaskHolder> {
-    AlertDialog.Builder builder;
-    private OnTaskListener mOnTaskListener;
+    private OnTaskListener listener;
 
-    public TaskAdapter(@NonNull FirestoreRecyclerOptions<Task> options, OnTaskListener mOnTaskListener) {
+    public TaskAdapter(@NonNull FirestoreRecyclerOptions<Task> options) {
         super(options);
-        this.mOnTaskListener = mOnTaskListener;
     }
 
     @Override
     protected void onBindViewHolder(@NonNull TaskHolder holder, int position, @NonNull Task model) {
         holder.textViewTask.setText(model.getTask());
         holder.textViewDate.setText(model.getDate());
+        holder.textViewTime.setText(model.getTime());
+        holder.textViewRepeat.setText(model.getRepeat());
+        holder.textViewDesc.setText(model.getDesc());
     }
 
     @NonNull
     @Override
     public TaskHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_cardview, parent, false);
-        return new TaskHolder(v, mOnTaskListener);
+        return new TaskHolder(v);
     }
 
-    public static class TaskHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public TextView textViewTask, textViewDate;
-        public ImageView mDeleteTask;
-        OnTaskListener onTaskListener;
+    public void deleteItem(int position){
+        getSnapshots().getSnapshot(position).getReference().delete();
+    }
 
-        public TaskHolder(@NonNull View itemView, OnTaskListener onTaskListener ) {
+
+    class TaskHolder extends RecyclerView.ViewHolder{
+        public TextView textViewTask, textViewDate, textViewTime, textViewRepeat, textViewDesc;
+        public ImageView mDeleteTask;
+
+        public TaskHolder(@NonNull View itemView) {
             super(itemView);
             textViewTask = itemView.findViewById(R.id.textTask);
             textViewDate = itemView.findViewById(R.id.textDate);
+            textViewTime = itemView.findViewById(R.id.textTime);
+            textViewRepeat = itemView.findViewById(R.id.textRepeat);
+            textViewDesc = itemView.findViewById(R.id.textDesc);
             mDeleteTask = itemView.findViewById(R.id.deleteIcon);
-            this.onTaskListener = onTaskListener;
 
-            itemView.setOnClickListener(this);
-//            mDeleteTask.setOnClickListener((View.OnClickListener) this);
-        }
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    if(position != RecyclerView.NO_POSITION && listener != null){
+                        listener.onTaskClick(getSnapshots().getSnapshot(position), position);
+                    }
+                }
+            });
 
-        @Override
-        public void onClick(View view) {
-            onTaskListener.onTaskClick(getAdapterPosition());
+            mDeleteTask.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (listener != null){
+                        int position = getAdapterPosition();
+                        if(position != RecyclerView.NO_POSITION){
+                            listener.onDeleteClick(position);
+                        }
+                    }
+                }
+            });
         }
     }
 
     public interface OnTaskListener {
-        void onTaskClick(int position);
+        void onTaskClick(DocumentSnapshot documentSnapshot, int position);
+        void onDeleteClick(int position);
+    }
+
+    public void setOnTaskListener(OnTaskListener listener){
+        this.listener = listener;
     }
 }
 
-
-
-
-
-//        private void showDeleteDataDialog(){
-//            AlertDialog.Builder builder = new AlertDialog.Builder();
-//            builder.setTitle("Delete");
-//            builder.setMessage("Are you sure you want to delete the task?")
-//                    //set positive/Yes
-//                    .setCancelable(false)
-//                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            finish();
-//                            signOut();
-//                            Toast.makeText(getApplicationContext(), "Logged out!",
-//                                    Toast.LENGTH_SHORT).show();
-//                        }
-//                    })
-//                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
-//                        public void onClick(DialogInterface dialog, int id) {
-//                            dialog.cancel();
-//                        }
-//                    });
-//        }
