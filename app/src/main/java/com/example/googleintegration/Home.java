@@ -17,6 +17,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.googleintegration.models.Settings;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -140,7 +141,8 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 break;
 
             case R.id.menu_settings:
-                //code
+                Intent se = new Intent(this, Settings.class);
+                this.startActivity(se);
                 break;
 
             case R.id.menu_logout:
