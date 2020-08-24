@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbarAlwaysDrawHorizontalTrack="true"
     android:scrollbars="vertical"
     tools:context=".AddNew">
 
@@ -27,13 +32,14 @@
         android:ems="10"
         android:hint="@string/enter_task_here"
         android:inputType="textPersonName"
+        app:errorEnabled="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.463"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lblTaskName"
         app:layout_constraintVertical_bias="0.0"
-        app:errorEnabled="true"/>
+        android:importantForAutofill="no" />
 
     <TextView
         android:id="@+id/lbldate"
@@ -43,27 +49,27 @@
         android:textSize="19sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.171"
+        app:layout_constraintHorizontal_bias="0.181"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.258" />
+        app:layout_constraintTop_toBottomOf="@+id/txtTaskName"
+        app:layout_constraintVertical_bias="0.056" />
 
     <EditText
         android:id="@+id/in_date"
         android:layout_width="200dp"
         android:layout_height="41dp"
         android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:autofillHints=""
-        android:editable="false"
+        app:errorEnabled="true"
+        android:hint="@string/date"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.151"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtTaskName"
-        app:layout_constraintVertical_bias="0.104"
-        app:errorEnabled="true"/>
+        app:layout_constraintTop_toBottomOf="@+id/lbldate"
+        app:layout_constraintVertical_bias="0.0"
+        android:inputType="date" />
 
     <TextView
         android:id="@+id/lbltime"
@@ -75,8 +81,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.171"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.404" />
+        app:layout_constraintTop_toBottomOf="@+id/in_date"
+        app:layout_constraintVertical_bias="0.065" />
 
     <EditText
         android:id="@+id/in_time"
@@ -85,14 +91,15 @@
         android:layout_below="@+id/in_date"
         android:layout_alignParentStart="true"
         android:autofillHints=""
-        android:editable="false"
+        app:errorEnabled="true"
+        android:hint="@string/time"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.151"
+        app:layout_constraintHorizontal_bias="0.161"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/in_date"
-        app:layout_constraintVertical_bias="0.121"
-        app:errorEnabled="true"/>
+        app:layout_constraintTop_toBottomOf="@+id/lbltime"
+        app:layout_constraintVertical_bias="0.0"
+        android:inputType="time"/>
 
     <TextView
         android:id="@+id/lblspinner"
@@ -102,10 +109,10 @@
         android:textSize="19sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.176"
+        app:layout_constraintHorizontal_bias="0.181"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.555" />
+        app:layout_constraintTop_toBottomOf="@+id/in_time"
+        app:layout_constraintVertical_bias="0.094" />
 
     <Spinner
         android:id="@+id/spinner"
@@ -113,14 +120,13 @@
         android:layout_height="33dp"
         android:layout_marginStart="33dp"
         android:layout_marginEnd="34dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/lbldesc"
+        app:errorEnabled="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lblspinner"
-        app:layout_constraintVertical_bias="0.0"
-        app:errorEnabled="true"/>
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/lbldesc"
@@ -132,23 +138,24 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.171"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.702" />
+        app:layout_constraintTop_toBottomOf="@+id/spinner"
+        app:layout_constraintVertical_bias="0.141" />
 
     <EditText
         android:id="@+id/txtdesc"
-        android:layout_width="343dp"
-        android:layout_height="46dp"
+        android:layout_width="346dp"
+        android:layout_height="49dp"
         android:ems="10"
         android:inputType="textMultiLine"
         android:textSize="17sp"
+        app:errorEnabled="true"
+        android:hint="@string/description"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lblTaskName"
-        app:layout_constraintVertical_bias="0.733"
-        app:errorEnabled="true"/>
+        app:layout_constraintTop_toBottomOf="@+id/lbldesc"
+        app:layout_constraintVertical_bias="0.0"
+        android:importantForAutofill="no" />
 
     <Button
         android:id="@+id/btn_time"
@@ -188,9 +195,10 @@
         android:textColorHint="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.105"
+        app:layout_constraintHorizontal_bias="0.947"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/in_time"
-        app:layout_constraintVertical_bias="0.782" />
+        app:layout_constraintTop_toBottomOf="@+id/txtdesc"
+        app:layout_constraintVertical_bias="0.483" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

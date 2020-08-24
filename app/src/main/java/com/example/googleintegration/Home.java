@@ -3,6 +3,7 @@ package com.example.googleintegration;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,6 +27,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
 
@@ -54,7 +56,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.draw);
+        mDrawerLayout = findViewById(R.id.draw);
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
@@ -62,18 +64,21 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if (acct != null) {
+            Uri personPhoto = acct.getPhotoUrl();
             String personName = acct.getDisplayName();
 //            String personGivenName = acct.getGivenName();
 //            String personFamilyName = acct.getFamilyName();
 //            String personEmail = acct.getEmail();
 //            String personId = acct.getId();
-//            Uri personPhoto = acct.getPhotoUrl();
 
             Toast.makeText(Home.this, "Welcome "+ personName, Toast.LENGTH_SHORT).show();
             nav = findViewById(R.id.nav);
             View header = nav.getHeaderView(0);
 
-            txtView = header.findViewById(R.id.name);
+            img = header.findViewById(R.id.profilePhoto);
+            Picasso.get().load(personPhoto).into(img);
+
+            txtView = header.findViewById(R.id.userName);
             txtView.setText(personName);
         }
 
@@ -159,9 +164,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 alert.setTitle("RemindMe");
                 alert.show();
         }
-
         return super.onOptionsItemSelected(item);
-        //Hello
     }
 
     private void setNavigationViewListener() {
