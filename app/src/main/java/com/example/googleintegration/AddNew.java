@@ -39,6 +39,7 @@ public class AddNew extends AppCompatActivity {
     private Spinner spinner;
     private DatabaseReference mDatabase;
     private String userId;
+    private String documentID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +109,9 @@ public class AddNew extends AppCompatActivity {
                 mDatabase = FirebaseDatabase.getInstance().getReference();
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                DocumentReference docRef = db.collection("remainder")
+                        .document();
+                documentID = docRef.getId();
                 assert user != null;
                 userId = user.getUid();
 
@@ -118,6 +122,7 @@ public class AddNew extends AppCompatActivity {
                 String desc = txtTaskDesc.getText().toString();
 
                 Map<String, Object> remainder = new HashMap<>();
+                remainder.put("Id", documentID);
                 remainder.put("userId", userId);
                 remainder.put("task", task);
                 remainder.put("date", date);
@@ -128,12 +133,12 @@ public class AddNew extends AppCompatActivity {
                 db.collection("remainder").add(remainder).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
-                        System.out.println("Hello");
+                        Toast.makeText(getApplicationContext(),"Added task to list",Toast.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                 public void onFailure(@NonNull Exception e) {
-
+                        Toast.makeText(getApplicationContext(),"Failed to add task",Toast.LENGTH_SHORT).show();
                 }});
             }
         });

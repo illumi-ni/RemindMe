@@ -1,5 +1,6 @@
 package com.example.googleintegration;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -25,7 +26,7 @@ public class TaskAdapter extends FirestoreRecyclerAdapter<Task, TaskAdapter.Task
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull TaskHolder holder, int position, @NonNull Task model) {
+    protected void onBindViewHolder(@NonNull TaskHolder holder, final int position, @NonNull final Task model) {
         holder.textViewTask.setText(model.getTask());
         holder.textViewDate.setText(model.getDate());
         holder.textViewTime.setText(model.getTime());

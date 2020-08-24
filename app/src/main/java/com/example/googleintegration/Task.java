@@ -1,6 +1,7 @@
 package com.example.googleintegration;
 
 public class Task {
+    private  String DocumentId;
     private String task;
     private String date;
     private String time;
@@ -11,9 +12,13 @@ public class Task {
         //empty constructor needed
     }
 
-    public Task(String task, String date){
+    public Task(String DocumentId, String task, String date, String time, String repeat, String desc){
+        this.DocumentId = DocumentId;
         this.task = task;
         this.date = date;
+        this.time = time;
+        this.repeat = repeat;
+        this.desc = desc;
     }
 
     public String getTask() {
@@ -34,5 +39,13 @@ public class Task {
 
     public String getDesc() {
         return desc;
+    }
+
+    public String getDocumentId() {
+        return DocumentId;
+    }
+
+    public void setDocumentId(String documentId) {
+        DocumentId = documentId;
     }
 }

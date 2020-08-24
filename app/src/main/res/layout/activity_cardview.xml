@@ -52,7 +52,8 @@
             android:textColor="#a9a9a9"
             android:layout_toEndOf="@id/textDate"
             android:layout_marginStart="8dp"
-            android:layout_below="@id/textTask"/>
+            android:layout_below="@id/textTask"
+            android:visibility="invisible"/>
 
         <TextView
             android:id="@+id/textRepeat"
@@ -63,7 +64,8 @@
             android:textColor="#a9a9a9"
             android:layout_toEndOf="@id/textTime"
             android:layout_marginStart="8dp"
-            android:layout_below="@id/textTask"/>
+            android:layout_below="@id/textTask"
+            android:visibility="invisible"/>
 
         <TextView
             android:id="@+id/textDesc"
@@ -74,7 +76,8 @@
             android:textColor="#a9a9a9"
             android:layout_toEndOf="@id/textRepeat"
             android:layout_marginStart="8dp"
-            android:layout_below="@id/textTask"/>
+            android:layout_below="@id/textTask"
+            android:visibility="invisible"/>
 
         <ImageView
             android:id="@+id/deleteIcon"
