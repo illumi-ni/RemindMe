@@ -73,7 +73,24 @@ public class TaskList extends AppCompatActivity{
 
             @Override
             public void onDeleteClick(final int position) {
-                adapter.deleteItem(position);
+                AlertDialog.Builder builder = new AlertDialog.Builder(TaskList.this);
+                builder.setMessage("Are you sure you want to delete the task?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                adapter.deleteItem(position);
+                                Toast.makeText(getApplicationContext(), "Deleted",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alert = builder.create();
+                alert.setTitle("Delete task");
+                alert.show();
             }
         });
     }
