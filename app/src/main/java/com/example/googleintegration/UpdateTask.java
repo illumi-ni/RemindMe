@@ -1,10 +1,8 @@
 package com.example.googleintegration;
 
-import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -37,7 +35,6 @@ import java.util.Map;
 import java.util.Objects;
 
 public class UpdateTask extends AppCompatActivity {
-
     private String documentID;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private Button btnDatePicker, btnTimePicker, btnUpdate;
@@ -71,7 +68,6 @@ public class UpdateTask extends AppCompatActivity {
         txtTime.setText(time);
         spinner.setTag(repeat);
         txtTaskDesc.setText(desc);
-
 
         btnDatePicker = findViewById(R.id.btn_date);
         btnTimePicker = findViewById(R.id.btn_time);
