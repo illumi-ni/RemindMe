@@ -141,8 +141,9 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 break;
 
             case R.id.menu_settings:
-                Intent se = new Intent(this, Settings.class);
-                this.startActivity(se);
+//                Intent se = new Intent(this, Settings.class);
+//                this.startActivity(se);
+                startActivity(new Intent(this,Settings.class));
                 break;
 
             case R.id.menu_logout:
