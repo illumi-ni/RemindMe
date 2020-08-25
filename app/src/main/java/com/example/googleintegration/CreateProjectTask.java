@@ -14,11 +14,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 public class CreateProjectTask extends AppCompatDialogFragment {
     private static final String TAG = "CreateProjectTask";
-
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private CollectionReference collectRef = db.collection("projects");
     private EditText editprtaskdesc;
     private EditText editprtaskdesc2;
+    String project_Id;
 
     @NonNull
     @Override
@@ -38,6 +43,10 @@ public class CreateProjectTask extends AppCompatDialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         String TaskDesc = editprtaskdesc.getText().toString();
                         String TaskDesc2 = editprtaskdesc2.getText().toString();
+
+                        ProjectTaskList task = new ProjectTaskList(TaskDesc, TaskDesc2);
+                        collectRef.document("project_id").collection("Task").add(task);
+
                         if (!TaskDesc.equals("")){
 
                         }
