@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+//this activity creates dialog box for project name and project description
 
 public class CreateProject extends AppCompatDialogFragment {
     private static final String TAG = "CreateProject";

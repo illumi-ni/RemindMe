@@ -10,12 +10,13 @@
         android:layout_height="match_parent"
         android:id="@+id/projectlist"
         />
+
     <Button
         android:id="@+id/btnproject"
         android:layout_width="207dp"
         android:layout_height="40dp"
-        android:layout_marginEnd="84dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginBottom="24dp"
         android:background="#00BCD4"
         android:text="create_project"
         android:textColor="#FFFFFF"

@@ -12,16 +12,20 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.googleintegration.models.ProjectNote;
+import com.example.googleintegration.models.ProjectTaskNote;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.gson.internal.$Gson$Preconditions;
@@ -35,17 +39,21 @@ public class Project extends AppCompatActivity implements ProjectActivity {
     private RecyclerView mProjectlist;
     private FirebaseFirestore firebaseFirestore;
     private FirestoreRecyclerAdapter adapter;
+    private CollectionReference projectRef;
+    private ImageView imgdel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project);
         setTitle("Project");
+        imgdel = (ImageView)findViewById(R.id.deleteimg);
         mProjectlist = findViewById(R.id.projectlist);
-        firebaseFirestore = FirebaseFirestore.getInstance();
 
-        Query query = firebaseFirestore.collection("projects")
-                .whereEqualTo("user_id", Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        projectRef = firebaseFirestore.collection("projects");
+
+        Query query = projectRef.whereEqualTo("user_id", Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
                 .orderBy("project_id", Query.Direction.DESCENDING);
 
         FirestoreRecyclerOptions<ProjectList> options = new FirestoreRecyclerOptions.Builder<ProjectList>()
@@ -60,6 +68,7 @@ public class Project extends AppCompatActivity implements ProjectActivity {
 
             @Override
             protected void onBindViewHolder(@NonNull ProjectViewHolder holder, int position, @NonNull ProjectList model) {
+
                 holder.listprojectname.setText(model.getProjectname());
                 holder.listprojectdesc.setText(model.getProjectdesc());
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -69,14 +78,17 @@ public class Project extends AppCompatActivity implements ProjectActivity {
                         startActivity(intent);
                     }
                 });
+
             }
         };
+
         mProjectlist.setHasFixedSize(true);
         mProjectlist.setLayoutManager(new LinearLayoutManager(this));
         mProjectlist.setAdapter(adapter);
 
         prtname = (TextView) findViewById(R.id.txtprjtname);
         prtdesc = (TextView) findViewById(R.id.txtprjtdesc);
+
 
         //opens create project dialog box
         Button btnpr = findViewById(R.id.btnproject);
@@ -97,6 +109,8 @@ public class Project extends AppCompatActivity implements ProjectActivity {
     public void createproject(String projectname, String projectdesc) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference newProjectRef = db.collection("projects").document();
+//        DocumentReference newProjectRef = db.collection("projects").document()
+//                .collection("ProjectTasks").document();
 
         String user_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
         ProjectNote projectNote = new ProjectNote();
@@ -116,7 +130,6 @@ public class Project extends AppCompatActivity implements ProjectActivity {
             }
         });
     }
-
 
     private class ProjectViewHolder extends RecyclerView.ViewHolder {
         private TextView listprojectname;
