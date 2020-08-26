@@ -128,12 +128,14 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         switch(item.getItemId()){
             case R.id.menu_today:
                 //code
+                Intent intent = new Intent(this, TodaysTask.class);
+                this.startActivity(intent);
                 break;
 
             case R.id.menu_upcoming:
                 //code
-                Intent intent = new Intent(this, TaskList.class);
-                this.startActivity(intent);
+                Intent in = new Intent(this, TaskList.class);
+                this.startActivity(in);
                 break;
 
             case R.id.menu_achievements:

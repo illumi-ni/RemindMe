@@ -1,7 +1,7 @@
 package com.example.googleintegration;
 
 public class Task {
-    private  String DocumentId;
+    private String DocumentId;
     private String task;
     private String date;
     private String time;

@@ -1,8 +1,17 @@
 package com.example.googleintegration;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.icu.text.SimpleDateFormat;
+import android.os.Build;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -13,13 +22,12 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -27,10 +35,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.ParseException;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+
+import static com.example.googleintegration.NotificationHelper.notificationId;
 
 public class AddNew extends AppCompatActivity {
     private Button btnDatePicker, btnTimePicker, btnSave;
@@ -40,6 +52,8 @@ public class AddNew extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private String userId;
     private String documentID;
+    private NotificationHelper notificationHelper;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +70,8 @@ public class AddNew extends AppCompatActivity {
         spinner= findViewById(R.id.spinner);
         txtTaskDesc = findViewById(R.id.txtdesc);
         btnSave = findViewById(R.id.btn_save);
+
+        notificationHelper = new NotificationHelper(this);
 
         btnDatePicker.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,7 +97,6 @@ public class AddNew extends AppCompatActivity {
         btnTimePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 final Calendar c = Calendar.getInstance();
                 mHour = c.get(Calendar.HOUR_OF_DAY);
                 mMinute = c.get(Calendar.MINUTE);
@@ -140,8 +155,23 @@ public class AddNew extends AppCompatActivity {
                 public void onFailure(@NonNull Exception e) {
                         Toast.makeText(getApplicationContext(),"Failed to add task",Toast.LENGTH_SHORT).show();
                 }});
+
+                sendNotification(txtTask.getText().toString(), txtTaskDesc.getText().toString());
+
+
             }
         });
+    }
 
+    public void startAlarm(Calendar c){
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(getApplicationContext(), AlertReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 1, intent, 0);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
+    }
+
+    public void sendNotification(String Title, String description){
+        NotificationCompat.Builder nb = notificationHelper.getNotificationChannel(Title, description);
+        notificationHelper.getManager().notify(1, nb.build());
     }
 }
