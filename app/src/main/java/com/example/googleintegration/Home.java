@@ -1,9 +1,14 @@
 package com.example.googleintegration;
 
 import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.text.Layout;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CalendarView;
@@ -38,13 +43,18 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     private NavigationView nav;
     AlertDialog.Builder builder;
 
-
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+//        mDrawerLayout = findViewById(R.id.draw);
+//        calenderView=findViewById(R.id.calendar);
+//        nav = findViewById(R.id.nav);
+//        Load_settings();
+
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -97,6 +107,15 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         });
         setNavigationViewListener();
     }
+//    public void Load_settings(){
+//        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+//        boolean chk_night = sp.getBoolean("NIGHT", false);
+//        if (chk_night) {
+//            mDrawerLayout.setBackgroundColor(Color.parseColor("555555"));
+//        } else {
+//            mDrawerLayout.setBackgroundColor(Color.parseColor("ffffff"));
+//        }
+//    }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -140,9 +159,10 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 break;
 
             case R.id.menu_settings:
-                Intent se = new Intent(this, Settings.class);
-                this.startActivity(se);
-//                startActivity(new Intent(this,Settings.class));
+//                Intent se = new Intent(this, Settings.class);
+//                this.startActivity(se);
+                startActivity(new Intent(this,Settings.class));
+
                 break;
 
             case R.id.menu_logout:
@@ -174,4 +194,10 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         NavigationView navigationView = findViewById(R.id.nav);
         navigationView.setNavigationItemSelectedListener(this);
     }
+
+//    @Override
+//    protected void onResume() {
+//        Load_settings();
+//        super.onResume();
+//    }
 }
