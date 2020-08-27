@@ -68,7 +68,7 @@
     <PreferenceCategory android:title="Screen Orientation">
         <ListPreference
             android:defaultValue="false"
-            android:key="ORIENTATTION"
+            android:key="ORIENTATION"
             android:entries="@array/items_name"
             android:entryValues="@array/items_values"
             android:title="Orientation"/>

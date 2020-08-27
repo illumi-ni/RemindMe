@@ -58,41 +58,41 @@ public class Settings extends PreferenceActivity {
         });
 
 
-//        ListPreference LP = (ListPreference) findPreference("ORIENTATAION");
-//        String orien = sp.getString("ORIENTATAION", "false");
-//        if ("1".equals(orien)) {
-//            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_BEHIND);
-//            LP.setSummary(LP.getEntry());
-//        } else if ("2".equals(orien)) {
-//            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-//            LP.setSummary(LP.getEntry());
-//        } else if ("3".equals(orien)) {
-//            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-//            LP.setSummary(LP.getEntry());
-//        }
-//
-//        LP.setOnPreferenceChangeListener(new android.preference.Preference.OnPreferenceChangeListener() {
-//            @Override
-//            public boolean onPreferenceChange(android.preference.Preference prefs, Object o) {
-//                String items = (String) o;
-//                if (prefs.getKey().equals("ORIENTATAION")) {
-//                    switch (items) {
-//                        case "1":
-//                            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_BEHIND);
-//                            break;
-//                        case "2":
-//                            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-//                            break;
-//                        case "3":
-//                            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-//                            break;
-//                    }
-//                    ListPreference LPP = (ListPreference) prefs;
-//                    LPP.setSummary(LPP.getEntries()[LPP.findIndexOfValue(items)]);
-//                }
-//                return true;
-//            }
-//        });
+        ListPreference LP = (ListPreference) findPreference("ORIENTATION");
+        String orien = sp.getString("ORIENTATION", "false");
+        if ("1".equals(orien)) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_BEHIND);
+            LP.setSummary(LP.getEntry());
+        } else if ("2".equals(orien)) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            LP.setSummary(LP.getEntry());
+        } else if ("3".equals(orien)) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+            LP.setSummary(LP.getEntry());
+        }
+
+        LP.setOnPreferenceChangeListener(new android.preference.Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(android.preference.Preference prefs, Object o) {
+                String items = (String) o;
+                if (prefs.getKey().equals("ORIENTATION")) {
+                    switch (items) {
+                        case "1":
+                            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_BEHIND);
+                            break;
+                        case "2":
+                            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                            break;
+                        case "3":
+                            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                            break;
+                    }
+                    ListPreference LPP = (ListPreference) prefs;
+                    LPP.setSummary(LPP.getEntries()[LPP.findIndexOfValue(items)]);
+                }
+                return true;
+            }
+        });
 
     }
     @Override
