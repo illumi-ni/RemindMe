@@ -14,7 +14,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class CreateProjectTask extends AppCompatDialogFragment {
@@ -23,6 +27,7 @@ public class CreateProjectTask extends AppCompatDialogFragment {
     private CollectionReference collectRef = db.collection("projects");
     private EditText editprtaskdesc;
     private EditText editprtaskdesc2;
+    private String docId;
     String project_Id;
 
     @NonNull
@@ -45,7 +50,11 @@ public class CreateProjectTask extends AppCompatDialogFragment {
                         String TaskDesc2 = editprtaskdesc2.getText().toString();
 
                         ProjectTaskList task = new ProjectTaskList(TaskDesc, TaskDesc2);
+                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
                         collectRef.document("project_id").collection("Task").add(task);
+                        docId = collectRef.getId();
+                        assert user != null;
 
                         if (!TaskDesc.equals("")){
 

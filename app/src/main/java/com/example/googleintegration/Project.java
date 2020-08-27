@@ -40,14 +40,15 @@ public class Project extends AppCompatActivity implements ProjectActivity {
     private FirebaseFirestore firebaseFirestore;
     private FirestoreRecyclerAdapter adapter;
     private CollectionReference projectRef;
-    private ImageView imgdel;
+//    private ImageView imgdel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project);
         setTitle("Project");
-        imgdel = (ImageView)findViewById(R.id.deleteimg);
+//        imgdel = (ImageView)findViewById(R.id.deleteimg);
         mProjectlist = findViewById(R.id.projectlist);
 
         firebaseFirestore = FirebaseFirestore.getInstance();
@@ -65,17 +66,21 @@ public class Project extends AppCompatActivity implements ProjectActivity {
                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_project_list, parent, false);
                 return new ProjectViewHolder(view);
             }
-
+//            public void deleteItem(int position){
+//                getSnapshots().getSnapshot(position).getReference().delete();
+//            }
             @Override
-            protected void onBindViewHolder(@NonNull ProjectViewHolder holder, int position, @NonNull ProjectList model) {
-
+            protected void onBindViewHolder(@NonNull final ProjectViewHolder holder, int position, @NonNull ProjectList model) {
                 holder.listprojectname.setText(model.getProjectname());
                 holder.listprojectdesc.setText(model.getProjectdesc());
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        DocumentSnapshot snapshot = getSnapshots().getSnapshot(holder.getAdapterPosition());
+                        snapshot.getId();
                         Intent intent = new Intent(v.getContext(), ProjectTask.class);
                         startActivity(intent);
+
                     }
                 });
 
@@ -134,10 +139,12 @@ public class Project extends AppCompatActivity implements ProjectActivity {
     private class ProjectViewHolder extends RecyclerView.ViewHolder {
         private TextView listprojectname;
         private TextView listprojectdesc;
+//        public ImageView imgdel;
         public ProjectViewHolder(@NonNull View itemView) {
             super(itemView);
             listprojectname = itemView.findViewById(R.id.txtprojectname);
             listprojectdesc = itemView.findViewById(R.id.txtprojectdesc);
+//            imgdel = itemView.findViewById(R.id.deleteimg);
         }
     }
 
