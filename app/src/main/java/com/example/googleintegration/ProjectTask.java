@@ -8,12 +8,16 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ProjectTask extends AppCompatActivity {
     private TextView prtskname;
     private TextView prtskdesc;
     private FloatingActionButton fabtsk, fabinvite;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private DocumentReference documentReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
