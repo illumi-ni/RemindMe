@@ -1,12 +1,15 @@
 package com.example.googleintegration;
 
 import android.annotation.TargetApi;
+import android.app.Application;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 
 import androidx.core.app.NotificationCompat;
@@ -41,12 +44,14 @@ public class NotificationHelper extends ContextWrapper {
     }
 
     public NotificationCompat.Builder getNotificationChannel(String Title, String description) {
-        Intent intent = new Intent(this, AddNew.class);
+        Intent intent1 = new Intent(getApplicationContext(), AddNew.class);
 
         return new NotificationCompat.Builder(getApplicationContext(), notificationId)
                 .setContentTitle(Title)
                 .setContentText(description)
-                .setSmallIcon(R.drawable.logo);
+                .setSmallIcon(R.drawable.logo)
+                .setAutoCancel(true)
+                .setColor(Color.GREEN);
     }
 }
 

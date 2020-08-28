@@ -138,10 +138,6 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 this.startActivity(in);
                 break;
 
-            case R.id.menu_achievements:
-                //code
-                break;
-
             case R.id.menu_settings:
                 //code
                 break;

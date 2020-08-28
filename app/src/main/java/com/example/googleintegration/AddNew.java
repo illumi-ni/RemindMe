@@ -2,16 +2,18 @@ package com.example.googleintegration;
 
 import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.icu.text.DateFormat;
 import android.icu.text.SimpleDateFormat;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.format.DateFormat;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -25,6 +27,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -35,6 +38,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
@@ -42,6 +46,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+//import static com.example.googleintegration.NotificationHelper.channelId;
 import static com.example.googleintegration.NotificationHelper.notificationId;
 
 public class AddNew extends AppCompatActivity {
@@ -53,7 +58,7 @@ public class AddNew extends AppCompatActivity {
     private String userId;
     private String documentID;
     private NotificationHelper notificationHelper;
-
+    String timeToNotify;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +77,6 @@ public class AddNew extends AppCompatActivity {
         btnSave = findViewById(R.id.btn_save);
 
         notificationHelper = new NotificationHelper(this);
-
         btnDatePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,7 +110,9 @@ public class AddNew extends AppCompatActivity {
 
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                                txtTime.setText(hourOfDay + ":" + minute);
+                                timeToNotify = hourOfDay + ":" + minute;
+                                txtTime.setText(FormatTime(hourOfDay,minute));
+
                             }
                         }, mHour, mMinute, false);
                 timePickerDialog.show();
@@ -148,30 +154,63 @@ public class AddNew extends AppCompatActivity {
                 db.collection("remainder").add(remainder).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
-                        Toast.makeText(getApplicationContext(),"Added task to list",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Added task to list", Toast.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
-                public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getApplicationContext(),"Failed to add task",Toast.LENGTH_SHORT).show();
-                }});
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getApplicationContext(), "Failed to add task", Toast.LENGTH_SHORT).show();
+                    }
+                });
 
-                sendNotification(txtTask.getText().toString(), txtTaskDesc.getText().toString());
 
+                AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                Intent intent = new Intent(getApplicationContext(), AlertReceiver.class);
+                intent.putExtra("task", task);
+                intent.putExtra("description", desc);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_ONE_SHOT);
 
+                String dateandtime = date + " " + timeToNotify;
+                DateFormat formatter = null;
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    formatter = new SimpleDateFormat("d-M-yyyy hh:mm");
+
+                    try {
+                        Date date1 = formatter.parse(dateandtime);
+                        alarmManager.set(AlarmManager.RTC_WAKEUP, date1.getTime(), pendingIntent);
+//                        sendNotification(txtTask.getText().toString(), txtTaskDesc.getText().toString());
+//                        NotificationCompat.Builder nb = notificationHelper.getNotificationChannel(task, desc);
+//                        notificationHelper.getManager().notify(1, nb.build());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    finish();
+                }
             }
         });
     }
 
-    public void startAlarm(Calendar c){
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(getApplicationContext(), AlertReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 1, intent, 0);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
-    }
+    public String FormatTime(int hour, int minute){
+        String time;
+        time = "";
+        String formattedMinute;
 
-    public void sendNotification(String Title, String description){
-        NotificationCompat.Builder nb = notificationHelper.getNotificationChannel(Title, description);
-        notificationHelper.getManager().notify(1, nb.build());
+        if( minute / 10 == 0){
+            formattedMinute = "0" + minute;
+        }else{
+            formattedMinute = "" + minute;
+        }
+
+        if (hour == 0){
+            time = "12" + ":" + formattedMinute + "AM";
+        }else if(hour <12){
+            time = hour + ":" + formattedMinute + "AM";
+        }else if (hour == 12){
+            time = "12" + ":" + formattedMinute + "PM";
+        }else{
+            int temp = hour-12;
+            time = temp + ":" + formattedMinute + "PM";
+        }
+        return time;
     }
 }
