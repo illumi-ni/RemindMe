@@ -122,7 +122,7 @@ public class UpdateTask extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                DocumentReference docRef = db.collection("remainder")
+                DocumentReference docRef = db.collection("reminder")
                         .document(documentID);
                 assert user != null;
                 userId = user.getUid();
@@ -133,15 +133,15 @@ public class UpdateTask extends AppCompatActivity {
                 String repeat = spinner.getSelectedItem().toString();
                 String desc = txtTaskDesc.getText().toString();
 
-                Map<String, Object> remainder = new HashMap<>();
-                remainder.put("userId", userId);
-                remainder.put("task", task);
-                remainder.put("date", date);
-                remainder.put("time", time);
-                remainder.put("repeat", repeat);
-                remainder.put("description", desc);
+                Map<String, Object> reminder = new HashMap<>();
+                reminder.put("userId", userId);
+                reminder.put("task", task);
+                reminder.put("date", date);
+                reminder.put("time", time);
+                reminder.put("repeat", repeat);
+                reminder.put("description", desc);
 
-                docRef.update(remainder)
+                docRef.update(reminder)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {

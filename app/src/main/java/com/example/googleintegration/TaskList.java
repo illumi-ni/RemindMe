@@ -29,7 +29,7 @@ import java.util.Objects;
 
 public class TaskList extends AppCompatActivity {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference taskRef = db.collection("remainder");
+    private CollectionReference taskRef = db.collection("reminder");
 
     private TaskAdapter adapter;
 
@@ -88,7 +88,7 @@ public class TaskList extends AppCompatActivity {
 
     private void setUpRecyclerView() {
         Query query = taskRef.whereEqualTo("userId", Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
-                .orderBy("date", Query.Direction.DESCENDING);
+                .orderBy("date", Query.Direction.ASCENDING);
         FirestoreRecyclerOptions<Task> options = new FirestoreRecyclerOptions.Builder<Task>()
                 .setQuery(query, Task.class)
                 .build();

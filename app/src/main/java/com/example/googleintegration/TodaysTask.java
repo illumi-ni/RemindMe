@@ -5,12 +5,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -25,11 +27,15 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
-import java.util.Objects;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 public class TodaysTask extends AppCompatActivity {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference taskRef = db.collection("remainder");
+    private CollectionReference taskRef = db.collection("reminder");
 
     private TaskAdapter adapter;
 
@@ -87,8 +93,13 @@ public class TodaysTask extends AppCompatActivity {
     }
 
     private void setUpRecyclerView() {
+        String dateFormat = "yyyy-MM-dd";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat);
+        String date = simpleDateFormat.format(new Date());
+
             Query query = taskRef.whereEqualTo("userId", Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
-                    .orderBy("time", Query.Direction.DESCENDING);
+                    .whereEqualTo("date", date)
+                    .orderBy("time", Query.Direction.ASCENDING);
 
             FirestoreRecyclerOptions<Task> options = new FirestoreRecyclerOptions.Builder<Task>()
                     .setQuery(query, Task.class)

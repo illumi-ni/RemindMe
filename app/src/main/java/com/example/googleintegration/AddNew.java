@@ -77,6 +77,7 @@ public class AddNew extends AppCompatActivity {
         btnSave = findViewById(R.id.btn_save);
 
         notificationHelper = new NotificationHelper(this);
+
         btnDatePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,7 +92,7 @@ public class AddNew extends AppCompatActivity {
 
                             @Override
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                txtDate.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
+                                txtDate.setText(formatDate(year, monthOfYear + 1, dayOfMonth));
                             }
                         }, mYear, mMonth, mDay);
                 datePickerDialog.show();
@@ -111,8 +112,7 @@ public class AddNew extends AppCompatActivity {
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                                 timeToNotify = hourOfDay + ":" + minute;
-                                txtTime.setText(FormatTime(hourOfDay,minute));
-
+                                txtTime.setText(FormatTime(hourOfDay, minute));
                             }
                         }, mHour, mMinute, false);
                 timePickerDialog.show();
@@ -130,7 +130,7 @@ public class AddNew extends AppCompatActivity {
                 mDatabase = FirebaseDatabase.getInstance().getReference();
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                DocumentReference docRef = db.collection("remainder")
+                DocumentReference docRef = db.collection("reminder")
                         .document();
                 documentID = docRef.getId();
                 assert user != null;
@@ -142,16 +142,16 @@ public class AddNew extends AppCompatActivity {
                 String repeat = spinner.getSelectedItem().toString();
                 String desc = txtTaskDesc.getText().toString();
 
-                Map<String, Object> remainder = new HashMap<>();
-                remainder.put("Id", documentID);
-                remainder.put("userId", userId);
-                remainder.put("task", task);
-                remainder.put("date", date);
-                remainder.put("time", time);
-                remainder.put("repeat", repeat);
-                remainder.put("description", desc);
+                Map<String, Object> reminder = new HashMap<>();
+                reminder.put("Id", documentID);
+                reminder.put("userId", userId);
+                reminder.put("task", task);
+                reminder.put("date", date);
+                reminder.put("time", time);
+                reminder.put("repeat", repeat);
+                reminder.put("description", desc);
 
-                db.collection("remainder").add(remainder).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                db.collection("reminder").add(reminder).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         Toast.makeText(getApplicationContext(), "Added task to list", Toast.LENGTH_SHORT).show();
@@ -181,13 +181,35 @@ public class AddNew extends AppCompatActivity {
 //                        sendNotification(txtTask.getText().toString(), txtTaskDesc.getText().toString());
 //                        NotificationCompat.Builder nb = notificationHelper.getNotificationChannel(task, desc);
 //                        notificationHelper.getManager().notify(1, nb.build());
-                    } catch (ParseException e) {
+                    }
+                    catch (ParseException e) {
                         e.printStackTrace();
                     }
                     finish();
                 }
             }
         });
+    }
+
+    public String formatDate (int year, int monthOfYear, int dayOfMonth){
+        String date = "";
+        String newMonth;
+        if (monthOfYear/10 == 0){
+            newMonth = "0" + monthOfYear;
+        }
+        else {
+            newMonth = String.valueOf(monthOfYear);
+        }
+
+        String newDay;
+        if (dayOfMonth < 10){
+            newDay = "0" + dayOfMonth;
+        }
+        else{
+            newDay = String.valueOf(dayOfMonth);
+        }
+        date = year+"-"+newMonth+"-"+newDay;
+        return date;
     }
 
     public String FormatTime(int hour, int minute){
@@ -197,17 +219,21 @@ public class AddNew extends AppCompatActivity {
 
         if( minute / 10 == 0){
             formattedMinute = "0" + minute;
-        }else{
+        }
+        else{
             formattedMinute = "" + minute;
         }
 
         if (hour == 0){
             time = "12" + ":" + formattedMinute + "AM";
-        }else if(hour <12){
+        }
+        else if(hour <12){
             time = hour + ":" + formattedMinute + "AM";
-        }else if (hour == 12){
+        }
+        else if (hour == 12){
             time = "12" + ":" + formattedMinute + "PM";
-        }else{
+        }
+        else{
             int temp = hour-12;
             time = temp + ":" + formattedMinute + "PM";
         }
