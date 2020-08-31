@@ -1,20 +1,15 @@
 package com.example.googleintegration;
 
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
-import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 
 public  class AlertReceiver extends BroadcastReceiver {
-    private static final String TAG = "AlertReceiver";
 
+    @SuppressLint("UnsafeProtectedBroadcastReceiver")
     @Override
     public void onReceive(Context context, Intent intent) {
         String task = intent.getStringExtra("task");
@@ -24,5 +19,4 @@ public  class AlertReceiver extends BroadcastReceiver {
         NotificationCompat.Builder nb = notificationHelper.getNotificationChannel(task, description);
         notificationHelper.getManager().notify(1, nb.build());
     }
-
 }

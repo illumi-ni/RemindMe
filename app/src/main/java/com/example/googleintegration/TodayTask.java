@@ -1,18 +1,17 @@
 package com.example.googleintegration;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -28,12 +27,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
 import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-public class TodaysTask extends AppCompatActivity {
+public class TodayTask extends AppCompatActivity {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference taskRef = db.collection("reminder");
 
@@ -43,7 +39,7 @@ public class TodaysTask extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todaystask);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        setTitle("Todays task");
+        setTitle("Today's task");
 
         FloatingActionButton fabNew = findViewById(R.id.fabNew);
         fabNew.setOnClickListener(new View.OnClickListener() {
@@ -80,26 +76,26 @@ public class TodaysTask extends AppCompatActivity {
     }
 
     public boolean isConnected() {
-        boolean connected = false;
+        boolean connected;
         try {
             ConnectivityManager cm = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo nInfo = cm.getActiveNetworkInfo();
             connected = nInfo != null && nInfo.isAvailable() && nInfo.isConnected();
             return connected;
         } catch (Exception e) {
-            Log.e("Connectivity Exception", e.getMessage());
+            Log.e("Connectivity Exception", Objects.requireNonNull(e.getMessage()));
         }
-        return connected;
+        return false;
     }
 
     private void setUpRecyclerView() {
         String dateFormat = "yyyy-MM-dd";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat);
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat);
         String date = simpleDateFormat.format(new Date());
 
             Query query = taskRef.whereEqualTo("userId", Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
                     .whereEqualTo("date", date)
-                    .orderBy("time", Query.Direction.ASCENDING);
+                    .orderBy("time", Query.Direction.DESCENDING);
 
             FirestoreRecyclerOptions<Task> options = new FirestoreRecyclerOptions.Builder<Task>()
                     .setQuery(query, Task.class)
@@ -124,7 +120,7 @@ public class TodaysTask extends AppCompatActivity {
                     String repeat = documentSnapshot.getString("repeat");
                     String desc = documentSnapshot.getString("description");
 
-                    Intent intent = new Intent(TodaysTask.this, UpdateTask.class);
+                    Intent intent = new Intent(TodayTask.this, UpdateTask.class);
                     assert task != null;
                     intent.putExtra("ID", documentId);
                     intent.putExtra("task", task);
@@ -137,7 +133,7 @@ public class TodaysTask extends AppCompatActivity {
 
                 @Override
                 public void onDeleteClick(final int position) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(TodaysTask.this);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(TodayTask.this);
                     builder.setMessage("Are you sure you want to delete the task?")
                             .setCancelable(false)
                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -159,7 +155,6 @@ public class TodaysTask extends AppCompatActivity {
             });
         }
 
-
         @Override
         protected void onStart () {
             super.onStart();
@@ -171,6 +166,4 @@ public class TodaysTask extends AppCompatActivity {
             super.onStop();
             adapter.stopListening();
         }
-
-
 }

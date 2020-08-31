@@ -14,19 +14,18 @@
 
         <CalendarView
             android:id="@+id/calendar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="414dp"
+            android:layout_height="356dp"
             android:layout_marginEnd="32dp"
-            android:layout_marginBottom="156dp"
             android:background="#EAE9E9"
             android:firstDayOfWeek="0"
             android:theme="@style/CalenderViewCustom"
             app:layout_constraintBottom_toTopOf="@+id/fab"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.081"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="0.0" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"

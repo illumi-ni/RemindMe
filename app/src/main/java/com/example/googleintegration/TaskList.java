@@ -1,6 +1,5 @@
 package com.example.googleintegration;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -28,6 +27,7 @@ import com.google.firebase.firestore.Query;
 import java.util.Objects;
 
 public class TaskList extends AppCompatActivity {
+    RecyclerView recyclerView;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference taskRef = db.collection("reminder");
 
@@ -74,30 +74,31 @@ public class TaskList extends AppCompatActivity {
     }
 
     public boolean isConnected() {
-        boolean connected = false;
+        boolean connected;
         try {
-            ConnectivityManager cm = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+            ConnectivityManager cm = (ConnectivityManager)getApplicationContext().getSystemService(CONNECTIVITY_SERVICE);
             NetworkInfo nInfo = cm.getActiveNetworkInfo();
             connected = nInfo != null && nInfo.isAvailable() && nInfo.isConnected();
             return connected;
         } catch (Exception e) {
-            Log.e("Connectivity Exception", e.getMessage());
+            Log.e("Connectivity Exception", Objects.requireNonNull(e.getMessage()));
         }
-        return connected;
+        return false;
     }
 
     private void setUpRecyclerView() {
-        Query query = taskRef.whereEqualTo("userId", Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
-                .orderBy("date", Query.Direction.ASCENDING);
+        Query query = taskRef.whereEqualTo("userId", (Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser())).getUid())
+                .orderBy("date", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<Task> options = new FirestoreRecyclerOptions.Builder<Task>()
                 .setQuery(query, Task.class)
                 .build();
 
         adapter = new TaskAdapter(options);
-        RecyclerView recyclerView = findViewById(R.id.recyclerview);
+        recyclerView = findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+
         adapter.setOnTaskListener(new TaskAdapter.OnTaskListener() {
             @Override
             public void onTaskClick(DocumentSnapshot documentSnapshot, int position) {

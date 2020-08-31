@@ -4,6 +4,8 @@
     package="com.example.googleintegration">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -15,7 +17,8 @@
             tools:ignore="Instantiatable" />
 
         <receiver android:name=".AlertReceiver"
-            android:enabled="true">
+            android:enabled="true"
+            android:exported="true">
 
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
@@ -29,7 +32,7 @@
             android:theme="@style/Theme.AppCompat.Light" />
 
         <activity
-            android:name=".TodaysTask"
+            android:name=".TodayTask"
             android:parentActivityName=".Home"
             android:theme="@style/Theme.AppCompat.Light" />
 

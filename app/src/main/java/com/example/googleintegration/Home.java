@@ -33,15 +33,8 @@ import java.util.Objects;
 
 public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private GoogleSignInClient mGoogleSignInClient;
-    private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
-    private TextView txtView;
-    private ImageView img;
-    private CalendarView calenderView;
-    private NavigationView nav;
     AlertDialog.Builder builder;
-
-
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -57,7 +50,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        mDrawerLayout = findViewById(R.id.draw);
+        DrawerLayout mDrawerLayout = findViewById(R.id.draw);
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
@@ -73,21 +66,20 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 //            String personId = acct.getId();
 
             Toast.makeText(Home.this, "Welcome "+ personName, Toast.LENGTH_SHORT).show();
-            nav = findViewById(R.id.nav);
+            NavigationView nav = findViewById(R.id.nav);
             View header = nav.getHeaderView(0);
 
-            img = header.findViewById(R.id.profilePhoto);
+            ImageView img = header.findViewById(R.id.profilePhoto);
             Picasso.get().load(personPhoto).into(img);
 
-            txtView = header.findViewById(R.id.userName);
+            TextView txtView = header.findViewById(R.id.userName);
             txtView.setText(personName);
         }
 
-        calenderView= findViewById(R.id.calendar);
+        CalendarView calenderView = findViewById(R.id.calendar);
         calenderView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
-                String date= i + "/" + i1 + "/" + i2 + "/";
             }
         });
 
@@ -127,13 +119,11 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
             case R.id.menu_today:
-                //code
-                Intent intent = new Intent(this, TodaysTask.class);
+                Intent intent = new Intent(this, TodayTask.class);
                 this.startActivity(intent);
                 break;
 
             case R.id.menu_upcoming:
-                //code
                 Intent in = new Intent(this, TaskList.class);
                 this.startActivity(in);
                 break;

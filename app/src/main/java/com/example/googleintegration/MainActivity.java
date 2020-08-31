@@ -23,6 +23,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import java.util.Objects;
+
 public class MainActivity extends Activity {
     private GoogleSignInClient mGoogleSignInClient;
     private FirebaseAuth mAuth;
@@ -30,7 +32,7 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        getActionBar().hide();
+        Objects.requireNonNull(getActionBar()).hide();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -72,24 +74,22 @@ public class MainActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-//        if(resultCode != RESULT_CANCELED) {
             if (requestCode == RC_SIGN_IN) {
                 Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
                 handleSignInResult(task);
             }
         }
-//    }
 
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
             Toast.makeText(getApplicationContext(), "Signed In Please Wait!", Toast.LENGTH_SHORT).show();
+            assert account != null;
             FirebaseGoogleAuth(account);
 
         }
         catch (ApiException e) {
             Toast.makeText(MainActivity.this, "Google Sign In Failed!", Toast.LENGTH_SHORT).show();
-//            FirebaseGoggleAuth(null);
         }
     }
 
@@ -105,13 +105,11 @@ public class MainActivity extends Activity {
                 }
                 else{
                     Toast.makeText(MainActivity.this, "All Sign In Failed!", Toast.LENGTH_SHORT).show();
-                    updateUI();
                 }
             }
         });
     }
-//Update UI
-    //UI
+
     private void updateUI(){
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
         if(account != null){
