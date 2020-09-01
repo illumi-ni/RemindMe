@@ -43,7 +43,7 @@ public class UpdateTask extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        setTitle("Edit Task");
+        setTitle("Edit task");
 
         Intent in = getIntent();
 

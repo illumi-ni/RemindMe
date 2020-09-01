@@ -10,19 +10,20 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/theme">
 
         <CalendarView
             android:id="@+id/calendar"
             android:layout_width="414dp"
             android:layout_height="356dp"
             android:layout_marginEnd="32dp"
-            android:background="#EAE9E9"
+            android:background="@color/colorBackground"
             android:firstDayOfWeek="0"
             android:theme="@style/CalenderViewCustom"
             app:layout_constraintBottom_toTopOf="@+id/fab"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.081"
+            app:layout_constraintHorizontal_bias="0.057"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
@@ -35,7 +36,7 @@
             android:layout_margin="16dp"
             android:contentDescription="@string/add_new_task"
             android:src="@drawable/ic_plus"
-            app:backgroundTint="#00BCD4"
+            app:backgroundTint="@color/colorButton"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.954"
@@ -50,7 +51,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:headerLayout="@layout/header"
-        app:itemTextColor="@color/black"
+        android:background="@color/colorBackground"
+        app:itemTextColor="@color/colorTextPrimary"
         app:menu="@menu/drawer_menu" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

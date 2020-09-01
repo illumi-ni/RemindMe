@@ -37,7 +37,7 @@ public class TaskList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tasklist);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        setTitle("Task List");
+        setTitle("Task list");
 
         FloatingActionButton fabNew = findViewById(R.id.fabNew);
         fabNew.setOnClickListener(new View.OnClickListener() {

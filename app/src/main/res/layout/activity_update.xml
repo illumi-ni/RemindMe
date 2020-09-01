@@ -5,11 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbarAlwaysDrawHorizontalTrack="true"
         android:scrollbars="vertical"
+        android:background="@color/theme"
         tools:context=".AddNew">
 
         <TextView
@@ -189,10 +191,10 @@
             android:id="@+id/btn_update"
             android:layout_width="108dp"
             android:layout_height="53dp"
-            android:backgroundTint="@color/mineshaft"
+            android:backgroundTint="@color/colorButton"
             android:text="@string/update"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#FFFFFF"
+            android:textColor="@color/colorTextSecondary"
+            android:textColorHint="@color/colorTextSecondary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.947"

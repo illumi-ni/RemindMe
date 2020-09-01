@@ -1,12 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Base application theme. -->
     <style name="SplashScreen" parent="Theme.MaterialComponents.NoActionBar">
         <item name="android:windowBackground">@drawable/background_splashscreen</item>
     </style>
 
+    <style name="ActionBar" parent="Theme.AppCompat.Light">
+
+    </style>
+
     <style name="CalenderViewCustom" parent="Theme.AppCompat.Light">
-        <item name="colorAccent">@color/mineshaft</item>
-        <item name="colorPrimary">@color/black</item>
+        <item name="colorAccent">#32CD32</item>
     </style>
 
 </resources>

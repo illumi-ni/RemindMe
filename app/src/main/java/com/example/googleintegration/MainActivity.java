@@ -23,7 +23,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-import java.util.Objects;
 
 public class MainActivity extends Activity {
     private GoogleSignInClient mGoogleSignInClient;
@@ -32,7 +31,6 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Objects.requireNonNull(getActionBar()).hide();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);

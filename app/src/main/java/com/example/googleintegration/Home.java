@@ -3,6 +3,8 @@ package com.example.googleintegration;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -16,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -36,12 +39,19 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     private ActionBarDrawerToggle mToggle;
     AlertDialog.Builder builder;
 
+    int NightMode;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
+        NavigationView nav = findViewById(R.id.nav);
+        View header = nav.getHeaderView(0);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -54,7 +64,29 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
+
+        sharedPreferences = getSharedPreferences("SharedPrefs", MODE_PRIVATE);
+        NightMode = sharedPreferences.getInt("NightModeInt", 1);
+        AppCompatDelegate.setDefaultNightMode(NightMode);
+
+        ImageView imgDayNight = header.findViewById(R.id.dayNightMode);
+        imgDayNight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int currentNightMode = getResources().getConfiguration().uiMode
+                        & Configuration.UI_MODE_NIGHT_MASK;
+                if(currentNightMode == Configuration.UI_MODE_NIGHT_YES){
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                }
+                else{
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+//                    Snackbar.make(v, "Night mode on", Snackbar.LENGTH_LONG)
+//                            .setAction("Action", null).show();
+//                    Toast.makeText(getApplicationContext(), "Day Night Mode", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if (acct != null) {
@@ -65,9 +97,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 //            String personEmail = acct.getEmail();
 //            String personId = acct.getId();
 
-            Toast.makeText(Home.this, "Welcome "+ personName, Toast.LENGTH_SHORT).show();
-            NavigationView nav = findViewById(R.id.nav);
-            View header = nav.getHeaderView(0);
+//            Toast.makeText(Home.this, "Welcome "+ personName, Toast.LENGTH_SHORT).show();
 
             ImageView img = header.findViewById(R.id.profilePhoto);
             Picasso.get().load(personPhoto).into(img);
@@ -92,14 +122,6 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
             }
         });
         setNavigationViewListener();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(mToggle.onOptionsItemSelected(item)){
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     private void signOut() {
@@ -156,8 +178,28 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(mToggle.onOptionsItemSelected(item)){
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private void setNavigationViewListener() {
         NavigationView navigationView = findViewById(R.id.nav);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        NightMode = AppCompatDelegate.getDefaultNightMode();
+        sharedPreferences = getSharedPreferences("SharedPrefs", MODE_PRIVATE);
+
+        editor = sharedPreferences.edit();
+        editor.putInt("NightModeInt", NightMode);
+        editor.apply();
     }
 }
