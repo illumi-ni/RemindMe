@@ -46,12 +46,10 @@ public class NotificationHelper extends ContextWrapper {
     }
 
     public NotificationCompat.Builder getNotificationChannel(String Title, String description) {
-        //setting up alarm sound
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION );
         MediaPlayer mp = MediaPlayer.create(getApplicationContext(), alarmSound);
         mp.start();
 
-        //pending intent for notification tap action
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
                 new Intent(this, TaskList.class), PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -70,7 +68,7 @@ public class NotificationHelper extends ContextWrapper {
 
                 //setting snooze button and snooze intent
                 .addAction(R.drawable.logo, getString(R.string.snooze), pendingIntent)
-                .setOngoing(true)
+                .addAction(R.drawable.ic_delete, "Mark as complete", pendingIntent)
 
                 //onClick intent
                 .setContentIntent(pendingIntent);

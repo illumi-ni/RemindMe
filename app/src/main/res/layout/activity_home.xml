@@ -13,36 +13,34 @@
         android:layout_height="match_parent"
         android:background="@color/theme">
 
-        <CalendarView
-            android:id="@+id/calendar"
-            android:layout_width="414dp"
-            android:layout_height="356dp"
-            android:layout_marginEnd="32dp"
-            android:background="@color/colorBackground"
-            android:firstDayOfWeek="0"
-            android:theme="@style/CalenderViewCustom"
-            app:layout_constraintBottom_toTopOf="@+id/fab"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.057"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
+        <Button
+            android:id="@+id/btnCalendar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_margin="16dp"
-            android:contentDescription="@string/add_new_task"
-            android:src="@drawable/ic_plus"
-            app:backgroundTint="@color/colorButton"
+            android:text="@string/calendar"
+            android:layout_gravity="bottom|end"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.954"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.948" />
+            app:tabIndicatorColor="@color/colorButton"
+            app:tabSelectedTextColor="@color/colorButton"
+            app:tabTextColor="@color/colorTextPrimary"/>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="419dp"
+            android:layout_height="553dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView

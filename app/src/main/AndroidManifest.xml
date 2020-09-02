@@ -33,11 +33,6 @@
             android:theme="@style/ActionBar" />
 
         <activity
-            android:name=".TodayTask"
-            android:parentActivityName=".Home"
-            android:theme="@style/ActionBar" />
-
-        <activity
             android:name=".TaskList"
             android:parentActivityName=".Home"
             android:theme="@style/ActionBar" />
