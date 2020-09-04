@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/theme"
+    tools:context=".CreateNote">
+
+    <EditText
+        android:id="@+id/noteTitle"
+        android:layout_width="376dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="36dp"
+        android:hint="@string/title"
+        android:inputType="text"
+        android:textColor="@color/colorSubText"
+        android:textColorHint="@color/colorSubText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.485"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:autofillHints="" />
+
+    <EditText
+        android:id="@+id/noteText"
+        android:layout_width="376dp"
+        android:layout_height="358dp"
+        android:hint="@string/note"
+        android:gravity="top"
+        android:inputType="textMultiLine"
+        android:textColor="@color/colorSubText"
+        android:textColorHint="@color/colorSubText"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/noteTitle"
+        app:layout_constraintVertical_bias="0.112"
+        android:autofillHints="" />
+
+    <Button
+        android:id="@+id/btnSaveNote"
+        android:layout_width="108dp"
+        android:layout_height="53dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/colorButton"
+        android:text="@string/save"
+        android:textColor="@color/colorTextSecondary"
+        android:textColorHint="@color/colorTextSecondary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.943"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/noteText"
+        app:layout_constraintVertical_bias="1.0" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,6 +14,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 public class TaskAdapter extends FirestoreRecyclerAdapter<Task, TaskAdapter.TaskHolder> {
+
     private OnTaskListener listener;
 
     public TaskAdapter(@NonNull FirestoreRecyclerOptions<Task> options) {

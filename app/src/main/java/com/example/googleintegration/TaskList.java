@@ -30,7 +30,6 @@ public class TaskList extends AppCompatActivity {
     RecyclerView recyclerView;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference taskRef = db.collection("reminder");
-
     private TaskAdapter adapter;
 
     protected void onCreate(Bundle savedInstanceState) {
