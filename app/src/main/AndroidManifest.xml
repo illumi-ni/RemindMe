@@ -28,7 +28,7 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".CreateNote"
+        <activity android:name=".CreateUpdateNote"
             android:parentActivityName=".Home"
             android:theme="@style/ActionBar">
         </activity>

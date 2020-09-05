@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -49,7 +48,7 @@ public class FragmentNotes extends Fragment {
         fabWrite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent in = new Intent(view.getContext(), CreateNote.class);
+                Intent in = new Intent(view.getContext(), CreateUpdateNote.class);
                 startActivity(in);
             }
         });
@@ -114,12 +113,12 @@ public class FragmentNotes extends Fragment {
                 Note no = documentSnapshot.toObject(Note.class);
                 assert no != null;
                 no.setDocumentId(documentSnapshot.getId());
-                String documentId = no.getDocumentId();
+                String noteId = no.getDocumentId();
                 String title = documentSnapshot.getString("noteTitle");
                 String note = documentSnapshot.getString("noteText");
 
-                Intent in = new Intent(view.getContext(), CreateNote.class);
-                in.putExtra("id", documentId);
+                Intent in = new Intent(view.getContext(), CreateUpdateNote.class);
+                in.putExtra("id", noteId);
                 in.putExtra("title", title);
                 in.putExtra("note", note);
                 startActivity(in);
