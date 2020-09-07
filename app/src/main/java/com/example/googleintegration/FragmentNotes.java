@@ -32,7 +32,7 @@ import java.util.Objects;
 public class FragmentNotes extends Fragment {
     RecyclerView recyclerView;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference taskRef = db.collection("note");
+    private CollectionReference noteRef = db.collection("note");
     private NoteAdapter noteAdapter;
     View view;
 
@@ -94,7 +94,7 @@ public class FragmentNotes extends Fragment {
     }
 
     private void setUpRecyclerView(){
-        Query query = taskRef.whereEqualTo("userId", (Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser())).getUid());
+        Query query = noteRef.whereEqualTo("userId", (Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser())).getUid());
         FirestoreRecyclerOptions<Note> options = new FirestoreRecyclerOptions.Builder<Note>()
                 .setQuery(query, Note.class)
                 .build();

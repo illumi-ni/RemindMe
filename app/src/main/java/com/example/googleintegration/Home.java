@@ -174,6 +174,11 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 this.startActivity(in);
                 break;
 
+            case R.id.menu_completed:
+                Intent intent1 = new Intent(this, CompletedTaskList.class);
+                this.startActivity(intent1);
+                break;
+
             case R.id.menu_project:
                 Intent intent = new Intent(this, CreateProject.class);
                 this.startActivity(intent);

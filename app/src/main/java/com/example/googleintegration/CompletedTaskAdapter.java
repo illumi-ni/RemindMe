@@ -11,17 +11,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.firebase.firestore.DocumentSnapshot;
 
-public class TaskAdapter extends FirestoreRecyclerAdapter<Task, TaskAdapter.TaskHolder> {
-    private OnTaskListener listener;
+public class CompletedTaskAdapter extends FirestoreRecyclerAdapter<CompletedTask, CompletedTaskAdapter.CompletedTaskHolder> {
+    private OnCompletedTaskListener listener;
 
-    public TaskAdapter(@NonNull FirestoreRecyclerOptions<Task> options) {
+    public CompletedTaskAdapter(@NonNull FirestoreRecyclerOptions<CompletedTask> options) {
         super(options);
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull TaskHolder holder, final int position, @NonNull final Task model) {
+    protected void onBindViewHolder(@NonNull CompletedTaskAdapter.CompletedTaskHolder holder, int position, @NonNull CompletedTask model) {
         holder.textViewTask.setText(model.getTask());
         holder.textViewDate.setText(model.getDate());
         holder.textViewTime.setText(model.getTime());
@@ -31,25 +30,20 @@ public class TaskAdapter extends FirestoreRecyclerAdapter<Task, TaskAdapter.Task
 
     @NonNull
     @Override
-    public TaskHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CompletedTaskAdapter.CompletedTaskHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_cardview, parent, false);
-        return new TaskHolder(v);
+        return new CompletedTaskHolder(v);
     }
 
     public void deleteItem(int position){
         getSnapshots().getSnapshot(position).getReference().delete();
     }
 
-    public DocumentSnapshot getSnapshot(int position){
-        return getSnapshots().getSnapshot(position);
-    }
-
-
-    class TaskHolder extends RecyclerView.ViewHolder{
+    class CompletedTaskHolder extends RecyclerView.ViewHolder{
         public TextView textViewTask, textViewDate, textViewTime, textViewRepeat, textViewDesc;
         public ImageView mDeleteTask;
 
-        public TaskHolder(@NonNull View itemView) {
+        public CompletedTaskHolder(@NonNull View itemView) {
             super(itemView);
             textViewTask = itemView.findViewById(R.id.textTask);
             textViewDate = itemView.findViewById(R.id.textDate);
@@ -57,16 +51,6 @@ public class TaskAdapter extends FirestoreRecyclerAdapter<Task, TaskAdapter.Task
             textViewRepeat = itemView.findViewById(R.id.textRepeat);
             textViewDesc = itemView.findViewById(R.id.textDesc);
             mDeleteTask = itemView.findViewById(R.id.deleteIcon);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int position = getAdapterPosition();
-                    if(position != RecyclerView.NO_POSITION && listener != null){
-                        listener.onTaskClick(getSnapshots().getSnapshot(position), position);
-                    }
-                }
-            });
 
             mDeleteTask.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -82,13 +66,11 @@ public class TaskAdapter extends FirestoreRecyclerAdapter<Task, TaskAdapter.Task
         }
     }
 
-    public interface OnTaskListener {
-        void onTaskClick(DocumentSnapshot documentSnapshot, int position);
+    public interface OnCompletedTaskListener{
         void onDeleteClick(int position);
     }
 
-    public void setOnTaskListener(OnTaskListener listener){
+    public void setOnCompletedTaskListener(OnCompletedTaskListener listener) {
         this.listener = listener;
     }
 }
-

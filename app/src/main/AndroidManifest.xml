@@ -29,10 +29,13 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".ProjectTaskMember"
-            android:parentActivityName=".CreateProject"
+        <activity android:name=".CompletedTaskList"
+            android:parentActivityName=".Home"
             android:theme="@style/ActionBar"/>
-
+        <activity
+            android:name=".ProjectTaskMember"
+            android:parentActivityName=".CreateProject"
+            android:theme="@style/ActionBar" />
         <activity
             android:name=".CreateProject"
             android:parentActivityName=".Home"
