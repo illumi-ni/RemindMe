@@ -20,32 +20,6 @@ public class ProjectTaskMember extends AppCompatActivity {
         String projectTitle = intent.getStringExtra("projectTitle");
         String dateCreated = intent.getStringExtra("dateCreated");
         setTitle(projectTitle);
-
-        TabLayout tabLayout = findViewById(R.id.tabLayoutProject);
-        final ViewPager viewPager = findViewById(R.id.viewPagerProject);
-
-        tabLayout.addTab(tabLayout.newTab().setText("Task"));
-        tabLayout.addTab(tabLayout.newTab().setText("Members"));
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        final TabAdapterProject adapter = new TabAdapterProject(this, getSupportFragmentManager(), tabLayout.getTabCount());
-        viewPager.setAdapter(adapter);
-
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
     }
 }
