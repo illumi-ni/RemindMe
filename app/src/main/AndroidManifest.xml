@@ -13,6 +13,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
+
         <activity
             android:name=".NotificationHelper"
             tools:ignore="Instantiatable" />
@@ -28,11 +29,18 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".CreateUpdateNote"
-            android:parentActivityName=".Home"
-            android:theme="@style/ActionBar">
-        </activity>
+        <activity android:name=".ProjectTaskMember"
+            android:parentActivityName=".CreateProject"
+            android:theme="@style/ActionBar"/>
 
+        <activity
+            android:name=".CreateProject"
+            android:parentActivityName=".Home"
+            android:theme="@style/ActionBar" />
+        <activity
+            android:name=".CreateUpdateNote"
+            android:parentActivityName=".Home"
+            android:theme="@style/ActionBar" />
         <activity
             android:name=".UpdateTask"
             android:parentActivityName=".TaskList"

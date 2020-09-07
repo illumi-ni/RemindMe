@@ -71,13 +71,13 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         });
 
 
-        TabLayout tabLayout = findViewById(R.id.tabLayout);
-        final ViewPager viewPager = findViewById(R.id.viewPager);
+        TabLayout tabLayout = findViewById(R.id.tabLayoutHome);
+        final ViewPager viewPager = findViewById(R.id.viewPagerHome);
 
         tabLayout.addTab(tabLayout.newTab().setText("Today's Task"));
         tabLayout.addTab(tabLayout.newTab().setText("Notes"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        final TabAdapter adapter = new TabAdapter(this, getSupportFragmentManager(), tabLayout.getTabCount());
+        final TabAdapterHome adapter = new TabAdapterHome(this, getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -150,22 +150,6 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
             TextView txtView = header.findViewById(R.id.userName);
             txtView.setText(personName);
         }
-
-//        CalendarView calenderView = findViewById(R.id.calendar);
-//        calenderView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-//            @Override
-//            public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
-//            }
-//        });
-//
-//        FloatingActionButton fab = findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent i = new Intent(getApplicationContext(), AddNew.class);
-//                startActivity(i);
-//            }
-//        });
         setNavigationViewListener();
     }
 
@@ -188,6 +172,11 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
             case R.id.menu_upcoming:
                 Intent in = new Intent(this, TaskList.class);
                 this.startActivity(in);
+                break;
+
+            case R.id.menu_project:
+                Intent intent = new Intent(this, CreateProject.class);
+                this.startActivity(intent);
                 break;
 
             case R.id.menu_settings:

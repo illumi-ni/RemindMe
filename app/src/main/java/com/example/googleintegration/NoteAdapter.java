@@ -39,13 +39,13 @@ public class NoteAdapter extends FirestoreRecyclerAdapter<Note, NoteAdapter.Note
 
     class NoteHolder extends RecyclerView.ViewHolder{
         public TextView txtViewTitle, txtViewNote;
-        public ImageView mDeleteTask;
+        public ImageView mDeleteNote;
 
         public NoteHolder(@NonNull View itemView) {
             super(itemView);
             txtViewTitle = itemView.findViewById(R.id.textNoteTitle);
             txtViewNote = itemView.findViewById(R.id.textNoteText);
-            mDeleteTask = itemView.findViewById(R.id.delete);
+            mDeleteNote = itemView.findViewById(R.id.delete);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -57,7 +57,7 @@ public class NoteAdapter extends FirestoreRecyclerAdapter<Note, NoteAdapter.Note
                 }
             });
 
-            mDeleteTask.setOnClickListener(new View.OnClickListener() {
+            mDeleteNote.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (listener != null){
