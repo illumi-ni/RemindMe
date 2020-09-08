@@ -177,20 +177,20 @@ public class UpdateTask extends AppCompatActivity {
     public void setAlarm(String documentID, String task, String repeat, String desc, long dateTime, int alarmID) {
         int repeatInterval = 0;
         switch(repeat){
-            case "Every minute":
-                repeatInterval = 60000;
+            case "5 minutes":
+                repeatInterval = 300000;
                 break;
 
-            case "Every hour":
-                repeatInterval = 3600000;
+            case "10 minutes":
+                repeatInterval = 600000;
                 break;
 
-            case "Every day":
-                repeatInterval = 86400000;
+            case "15 minutes":
+                repeatInterval = 900000;
                 break;
 
-            case "Every week":
-                repeatInterval = 604800000;
+            case "30 minutes":
+                repeatInterval = 1800000;
                 break;
         }
 
@@ -199,6 +199,7 @@ public class UpdateTask extends AppCompatActivity {
         intent.putExtra("documentID", documentID);
         intent.putExtra("task", task);
         intent.putExtra("description", desc);
+        intent.putExtra("alarmID", alarmID);
         PendingIntent pendingIntent =
                 PendingIntent.getBroadcast(getApplicationContext(), alarmID, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, dateTime, repeatInterval, pendingIntent);

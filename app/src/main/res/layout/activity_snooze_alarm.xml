@@ -5,20 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
+    android:id="@+id/cons"
     tools:context=".SnoozeAlarm">
 
     <ImageView
         android:id="@+id/imageLogo"
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:contentDescription="@string/logo"
         android:src="@drawable/logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.116"
-        android:contentDescription="@string/logo" />
+        app:layout_constraintVertical_bias="0.227" />
 
     <TextView
         android:id="@+id/txtTitle"
@@ -49,5 +50,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtTitle"
         app:layout_constraintVertical_bias="0.006" />
+
+    <Button
+        android:id="@+id/btnSnooze"
+        android:layout_width="108dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="80dp"
+        android:backgroundTint="#A9A9A9"
+        android:text="@string/snooze"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/btnCancel"
+        app:layout_constraintHorizontal_bias="0.427"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtTime" />
+
+    <Button
+        android:id="@+id/btnCancel"
+        android:layout_width="108dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="80dp"
+        android:backgroundTint="#A9A9A9"
+        android:text="@string/cancel"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.815"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtTime" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

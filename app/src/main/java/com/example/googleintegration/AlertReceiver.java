@@ -15,9 +15,10 @@ public  class AlertReceiver extends BroadcastReceiver {
         String documentID = intent.getStringExtra("documentID");
         String task = intent.getStringExtra("task");
         String description = intent.getStringExtra("description");
+        int alarmID = intent.getIntExtra("alarmID", 0);
 
         NotificationHelper notificationHelper = new NotificationHelper(context);
-        NotificationCompat.Builder nb = notificationHelper.getNotificationChannel(documentID, task, description);
+        NotificationCompat.Builder nb = notificationHelper.getNotificationChannel(documentID, task, description, alarmID);
         notificationHelper.getManager().notify(1, nb.build());
     }
 }

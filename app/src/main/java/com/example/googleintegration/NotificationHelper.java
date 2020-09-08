@@ -45,7 +45,7 @@ public class NotificationHelper extends ContextWrapper {
         return manager;
     }
 
-    public NotificationCompat.Builder getNotificationChannel(String documentID, String Title, String description) {
+    public NotificationCompat.Builder getNotificationChannel(String documentID, String Title, String description, int alarmID) {
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION );
         MediaPlayer mp = MediaPlayer.create(getApplicationContext(), alarmSound);
         mp.start();
@@ -55,6 +55,7 @@ public class NotificationHelper extends ContextWrapper {
         intentSnooze.putExtra("documentID", documentID);
         intentSnooze.putExtra("task", Title);
         intentSnooze.putExtra("description", description);
+        intentSnooze.putExtra("alarmID", alarmID);
         PendingIntent pendingIntentSnooze = PendingIntent.getActivity(getApplicationContext(),0,
                 intentSnooze, PendingIntent.FLAG_CANCEL_CURRENT);
 

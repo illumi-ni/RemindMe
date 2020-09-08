@@ -15,13 +15,11 @@
     <string name="enter_task_here">Enter Task here..</string>
     <string name="due_date">Due date</string>
     <string-array name="repeat">
-        <item>Never</item>
-        <item>Every minute</item>
-        <item>Every hour</item>
-        <item>Every day</item>
-        <item>Every week</item>
-        <item>Every month</item>
-        <item>Every year</item>
+        <item>Off</item>
+        <item>5 minutes</item>
+        <item>10 minutes</item>
+        <item>15 minutes</item>
+        <item>30 minutes</item>
     </string-array>
     <string name="desc">Task description</string>
     <string name="project">Project</string>
@@ -45,4 +43,5 @@
     <string name="datereated">dateCreated</string>
     <string name="last_modified">Last Modified:</string>
     <string name="task">Task</string>
+    <string name="cancel">cancel</string>
 </resources>
