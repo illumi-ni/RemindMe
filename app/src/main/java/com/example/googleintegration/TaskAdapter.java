@@ -25,8 +25,6 @@ public class TaskAdapter extends FirestoreRecyclerAdapter<Task, TaskAdapter.Task
         holder.textViewTask.setText(model.getTask());
         holder.textViewDate.setText(model.getDate());
         holder.textViewTime.setText(model.getTime());
-        holder.textViewRepeat.setText(model.getRepeat());
-        holder.textViewDesc.setText(model.getDesc());
     }
 
     @NonNull
@@ -46,7 +44,7 @@ public class TaskAdapter extends FirestoreRecyclerAdapter<Task, TaskAdapter.Task
 
 
     class TaskHolder extends RecyclerView.ViewHolder{
-        public TextView textViewTask, textViewDate, textViewTime, textViewRepeat, textViewDesc;
+        public TextView textViewTask, textViewDate, textViewTime;
         public ImageView mDeleteTask;
 
         public TaskHolder(@NonNull View itemView) {
@@ -54,8 +52,6 @@ public class TaskAdapter extends FirestoreRecyclerAdapter<Task, TaskAdapter.Task
             textViewTask = itemView.findViewById(R.id.textTask);
             textViewDate = itemView.findViewById(R.id.textDate);
             textViewTime = itemView.findViewById(R.id.textTime);
-            textViewRepeat = itemView.findViewById(R.id.textRepeat);
-            textViewDesc = itemView.findViewById(R.id.textDesc);
             mDeleteTask = itemView.findViewById(R.id.deleteIcon);
 
             itemView.setOnClickListener(new View.OnClickListener() {

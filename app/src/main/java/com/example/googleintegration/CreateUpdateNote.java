@@ -17,7 +17,10 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
@@ -74,6 +77,8 @@ public class CreateUpdateNote extends AppCompatActivity {
             DocumentReference docRef = db.collection("note").document();
             String noteId = docRef.getId();
 
+            String dateModified = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+
             assert user != null;
             userId = user.getUid();
 
@@ -82,6 +87,7 @@ public class CreateUpdateNote extends AppCompatActivity {
             note.put("userId", userId);
             note.put("noteTitle", noteTitle);
             note.put("noteText", noteText);
+            note.put("dateModified", dateModified);
 
             db.collection("note").add(note).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                 @Override
@@ -109,10 +115,13 @@ public class CreateUpdateNote extends AppCompatActivity {
             assert user != null;
             userId = user.getUid();
 
+            String dateModified = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+
             Map<String, Object> note = new HashMap<>();
             note.put("userId", userId);
             note.put("noteTitle", noteTitle);
             note.put("noteText", noteText);
+            note.put("dateModified", dateModified);
 
             docRef.update(note).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override

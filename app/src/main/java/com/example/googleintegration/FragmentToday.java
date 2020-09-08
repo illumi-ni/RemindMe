@@ -1,6 +1,8 @@
 package com.example.googleintegration;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -143,7 +145,13 @@ public class FragmentToday extends Fragment {
                         .setCancelable(false)
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
+                                DocumentSnapshot doc = adapter.getSnapshot(position);
+                                Task t = doc.toObject(Task.class);
+                                assert t != null;
+                                int alarmID = t.getAlarmID();
+
                                 adapter.deleteItem(position);
+                                cancelAlarm(alarmID);
                                 Toast.makeText(view.getContext(), "Deleted",
                                         Toast.LENGTH_SHORT).show();
                             }
@@ -158,6 +166,14 @@ public class FragmentToday extends Fragment {
                 alert.show();
             }
         });
+    }
+
+    public void cancelAlarm(int alarmID){
+        AlarmManager alarmManager = (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(view.getContext(), AlertReceiver.class);
+        PendingIntent pendingIntent =
+                PendingIntent.getBroadcast(view.getContext(), alarmID, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        alarmManager.cancel(pendingIntent);
     }
 
     @Override

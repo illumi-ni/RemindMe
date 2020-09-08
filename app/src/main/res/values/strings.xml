@@ -42,5 +42,7 @@
     <string name="calendar">Calendar</string>
     <string name="note">Note</string>
     <string name="create_a_new_project">Create a new project</string>
-    <string name="datecreated">dateCreated</string>
+    <string name="datereated">dateCreated</string>
+    <string name="last_modified">Last Modified:</string>
+    <string name="task">Task</string>
 </resources>

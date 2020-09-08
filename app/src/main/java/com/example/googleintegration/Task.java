@@ -7,18 +7,20 @@ public class Task {
     private String time;
     private String repeat;
     private String desc;
+    private int alarmID;
 
     public Task(){
         //empty constructor needed
     }
 
-    public Task(String DocumentId, String task, String date, String time, String repeat, String desc){
+    public Task(String DocumentId, String task, String date, String time, String repeat, String desc, int alarmID){
         this.DocumentId = DocumentId;
         this.task = task;
         this.date = date;
         this.time = time;
         this.repeat = repeat;
         this.desc = desc;
+        this.alarmID = alarmID;
     }
 
     public String getTask() {
@@ -39,6 +41,10 @@ public class Task {
 
     public String getDesc() {
         return desc;
+    }
+
+    public int getAlarmID() {
+        return alarmID;
     }
 
     public String getDocumentId() {

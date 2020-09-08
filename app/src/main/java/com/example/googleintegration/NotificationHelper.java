@@ -45,19 +45,18 @@ public class NotificationHelper extends ContextWrapper {
         return manager;
     }
 
-    public NotificationCompat.Builder getNotificationChannel(String Title, String description) {
+    public NotificationCompat.Builder getNotificationChannel(String documentID, String Title, String description) {
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION );
         MediaPlayer mp = MediaPlayer.create(getApplicationContext(), alarmSound);
         mp.start();
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
-                new Intent(this, TaskList.class), PendingIntent.FLAG_UPDATE_CURRENT);
-
-        //pending intent for snooze on action button click
-//        Intent intentSnooze = new Intent(getApplicationContext(), AlertReceiver.class);
-//        intentSnooze.putExtra("snooze","snooze");
-//        PendingIntent pendingIntentSnooze = PendingIntent.getBroadcast(getApplicationContext(),1,
-//                intentSnooze, PendingIntent.FLAG_UPDATE_CURRENT);
+//        pending intent for snooze
+        Intent intentSnooze = new Intent(getApplicationContext(), SnoozeAlarm.class);
+        intentSnooze.putExtra("documentID", documentID);
+        intentSnooze.putExtra("task", Title);
+        intentSnooze.putExtra("description", description);
+        PendingIntent pendingIntentSnooze = PendingIntent.getActivity(getApplicationContext(),0,
+                intentSnooze, PendingIntent.FLAG_CANCEL_CURRENT);
 
         return new NotificationCompat.Builder(getApplicationContext(), notificationId)
                 .setContentTitle(Title)
@@ -66,12 +65,8 @@ public class NotificationHelper extends ContextWrapper {
                 .setColor(Color.CYAN)
                 .setAutoCancel(true)
 
-                //setting snooze button and snooze intent
-                .addAction(R.drawable.logo, getString(R.string.snooze), pendingIntent)
-                .addAction(R.drawable.ic_delete, "Mark as complete", pendingIntent)
-
                 //onClick intent
-                .setContentIntent(pendingIntent);
+                .setContentIntent(pendingIntentSnooze);
     }
 }
 

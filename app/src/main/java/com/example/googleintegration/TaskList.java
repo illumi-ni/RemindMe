@@ -1,5 +1,8 @@
 package com.example.googleintegration;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Canvas;
@@ -43,12 +46,13 @@ public class TaskList extends AppCompatActivity {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference taskRef = db.collection("reminder");
     private TaskAdapter adapter;
+    int alarmID;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tasklist);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        setTitle("Task list");
+        setTitle("All tasks");
 
         FloatingActionButton fabNew = findViewById(R.id.fabNew);
         fabNew.setOnClickListener(new View.OnClickListener() {
@@ -140,11 +144,17 @@ public class TaskList extends AppCompatActivity {
             @Override
             public void onDeleteClick(final int position) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(TaskList.this);
-                builder.setMessage("Are you sure you want to delete the task?")
+                builder.setMessage("Are you sure you want to permanently delete the task?")
                         .setCancelable(false)
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
+                                DocumentSnapshot doc = adapter.getSnapshot(position);
+                                Task t = doc.toObject(Task.class);
+                                assert t != null;
+                                alarmID = t.getAlarmID();
+
                                 adapter.deleteItem(position);
+                                cancelAlarm(alarmID);
                                 Toast.makeText(getApplicationContext(), "Deleted",
                                         Toast.LENGTH_SHORT).show();
                             }
@@ -181,6 +191,7 @@ public class TaskList extends AppCompatActivity {
                 String time = doc.getString("time");
                 String repeat = doc.getString("repeat");
                 String desc = doc.getString("description");
+                alarmID = t.getAlarmID();
 
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -210,7 +221,7 @@ public class TaskList extends AppCompatActivity {
                     }
                 });
                 adapter.deleteItem(position);
-                setUpRecyclerView();
+                cancelAlarm(alarmID);
             }
         }
 
@@ -224,6 +235,14 @@ public class TaskList extends AppCompatActivity {
             super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
         }
     };
+
+    public void cancelAlarm(int alarmID){
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(getApplicationContext(), AlertReceiver.class);
+        PendingIntent pendingIntent =
+                PendingIntent.getBroadcast(getApplicationContext(), alarmID, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        alarmManager.cancel(pendingIntent);
+    }
 
     @Override
     protected void onStart() {

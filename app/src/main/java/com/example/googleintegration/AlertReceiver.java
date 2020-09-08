@@ -12,11 +12,12 @@ public  class AlertReceiver extends BroadcastReceiver {
     @SuppressLint("UnsafeProtectedBroadcastReceiver")
     @Override
     public void onReceive(Context context, Intent intent) {
+        String documentID = intent.getStringExtra("documentID");
         String task = intent.getStringExtra("task");
         String description = intent.getStringExtra("description");
 
         NotificationHelper notificationHelper = new NotificationHelper(context);
-        NotificationCompat.Builder nb = notificationHelper.getNotificationChannel(task, description);
+        NotificationCompat.Builder nb = notificationHelper.getNotificationChannel(documentID, task, description);
         notificationHelper.getManager().notify(1, nb.build());
     }
 }

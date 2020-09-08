@@ -144,6 +144,8 @@ public class UpdateTask extends AppCompatActivity {
                     assert user != null;
                     userId = user.getUid();
 
+                    int alarmID = (int) System.currentTimeMillis();
+
                     Map<String, Object> reminder = new HashMap<>();
                     reminder.put("userId", userId);
                     reminder.put("task", task);
@@ -151,6 +153,7 @@ public class UpdateTask extends AppCompatActivity {
                     reminder.put("time", time);
                     reminder.put("repeat", repeat);
                     reminder.put("description", desc);
+                    reminder.put("alarmID", alarmID);
 
                     docRef.update(reminder).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
@@ -164,14 +167,14 @@ public class UpdateTask extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Failed to update", Toast.LENGTH_SHORT).show();
                         }
                     });
-                    setAlarm(task, repeat, desc, cal.getTimeInMillis());
+                    setAlarm(documentID, task, repeat, desc, cal.getTimeInMillis(), alarmID);
                     finish();
                 }
             }
         });
     }
 
-    public void setAlarm(String task, String repeat, String desc, long dateTime) {
+    public void setAlarm(String documentID, String task, String repeat, String desc, long dateTime, int alarmID) {
         int repeatInterval = 0;
         switch(repeat){
             case "Every minute":
@@ -191,13 +194,13 @@ public class UpdateTask extends AppCompatActivity {
                 break;
         }
 
-        int _id = (int) System.currentTimeMillis();
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(getApplicationContext(), AlertReceiver.class);
+        intent.putExtra("documentID", documentID);
         intent.putExtra("task", task);
         intent.putExtra("description", desc);
         PendingIntent pendingIntent =
-                PendingIntent.getBroadcast(getApplicationContext(), _id, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+                PendingIntent.getBroadcast(getApplicationContext(), alarmID, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, dateTime, repeatInterval, pendingIntent);
     }
 }

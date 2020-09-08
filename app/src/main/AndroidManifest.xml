@@ -29,9 +29,12 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".CompletedTaskList"
+        <activity android:name=".SnoozeAlarm"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".CompletedTaskList"
             android:parentActivityName=".Home"
-            android:theme="@style/ActionBar"/>
+            android:theme="@style/ActionBar" />
         <activity
             android:name=".ProjectTaskMember"
             android:parentActivityName=".CreateProject"

@@ -7,6 +7,7 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -130,6 +131,8 @@ public class AddNew extends AppCompatActivity {
                     assert user != null;
                     userId = user.getUid();
 
+                    int alarmID = (int) System.currentTimeMillis();
+
                     Map<String, Object> reminder = new HashMap<>();
                     reminder.put("Id", documentID);
                     reminder.put("userId", userId);
@@ -138,6 +141,7 @@ public class AddNew extends AppCompatActivity {
                     reminder.put("time", time);
                     reminder.put("repeat", repeat);
                     reminder.put("description", desc);
+                    reminder.put("alarmID", alarmID);
 
                     db.collection("reminder").add(reminder).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
@@ -150,14 +154,14 @@ public class AddNew extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Failed to add task", Toast.LENGTH_SHORT).show();
                         }
                     });
-                    setAlarm(task, repeat, desc, cal.getTimeInMillis());
+                    setAlarm(documentID, task, repeat, desc, cal.getTimeInMillis(), alarmID);
                     finish();
                 }
             }
         });
     }
 
-    public void setAlarm(String task, String repeat, String desc, long dateTime) {
+    public void setAlarm(String documentID, String task, String repeat, String desc, long dateTime, int alarmID) {
         int repeatInterval = 0;
         switch(repeat){
             case "Every minute":
@@ -177,13 +181,13 @@ public class AddNew extends AppCompatActivity {
                 break;
         }
 
-        int _id = (int) System.currentTimeMillis();
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(getApplicationContext(), AlertReceiver.class);
+        intent.putExtra("documentID", documentID);
         intent.putExtra("task", task);
         intent.putExtra("description", desc);
         PendingIntent pendingIntent =
-                PendingIntent.getBroadcast(getApplicationContext(), _id, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+                PendingIntent.getBroadcast(getApplicationContext(), alarmID, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, dateTime, repeatInterval, pendingIntent);
     }
 
@@ -237,35 +241,3 @@ public class AddNew extends AppCompatActivity {
         return date;
     }
 }
-
-//    AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-//                Intent intent = new Intent(getApplicationContext(), AlertReceiver.class);
-//                intent.putExtra("task", task);
-//                intent.putExtra("description", desc);
-//                PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 123, intent, 0);
-//
-////                int dat = Integer.parseInt(date);
-////                int tim = Integer.parseInt(time);
-//
-//                final Calendar c = Calendar.getInstance();
-//                c.set(2020, 8, 29, 17, 3, 0);
-//
-//                alarmManager.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
-//
-////                String dateAndTime = date + " " + timeToNotify;
-////                DateFormat formatter = null;
-////                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-////                    formatter = new SimpleDateFormat("d-M-yyyy hh:mm");
-////
-////                    try {
-////                        Date date1 = formatter.parse(dateAndTime);
-////                        alarmManager.set(AlarmManager.RTC_WAKEUP, date1.getTime(), pendingIntent);
-//////                        sendNotification(txtTask.getText().toString(), txtTaskDesc.getText().toString());
-//////                        NotificationCompat.Builder nb = notificationHelper.getNotificationChannel(task, desc);
-//////                        notificationHelper.getManager().notify(1, nb.build());
-////                    }
-////                    catch (ParseException e) {
-////                        e.printStackTrace();
-////                    }
-////                    finish();
-////                }

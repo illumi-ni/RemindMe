@@ -24,6 +24,7 @@ public class NoteAdapter extends FirestoreRecyclerAdapter<Note, NoteAdapter.Note
     protected void onBindViewHolder(@NonNull NoteAdapter.NoteHolder holder, int position, @NonNull Note model) {
         holder.txtViewTitle.setText(model.getNoteTitle());
         holder.txtViewNote.setText(model.getNoteText());
+        holder.txtDateModified.setText(model.getDateModified());
     }
 
     @NonNull
@@ -38,13 +39,14 @@ public class NoteAdapter extends FirestoreRecyclerAdapter<Note, NoteAdapter.Note
     }
 
     class NoteHolder extends RecyclerView.ViewHolder{
-        public TextView txtViewTitle, txtViewNote;
+        public TextView txtViewTitle, txtViewNote, txtDateModified;
         public ImageView mDeleteNote;
 
         public NoteHolder(@NonNull View itemView) {
             super(itemView);
             txtViewTitle = itemView.findViewById(R.id.textNoteTitle);
             txtViewNote = itemView.findViewById(R.id.textNoteText);
+            txtDateModified = itemView.findViewById(R.id.dateModified);
             mDeleteNote = itemView.findViewById(R.id.delete);
 
             itemView.setOnClickListener(new View.OnClickListener() {
