@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.googleintegration">
-
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
-    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -15,56 +10,15 @@
         android:supportsRtl="true">
 
         <activity
-            android:name=".NotificationHelper"
-            tools:ignore="Instantiatable" />
-
-        <receiver
-            android:name=".AlertReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </receiver>
-
-        <activity android:name=".SnoozeAlarm"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name=".CompletedTaskList"
-            android:parentActivityName=".Home"
-            android:theme="@style/ActionBar" />
-        <activity
-            android:name=".ProjectTaskMember"
-            android:parentActivityName=".CreateProject"
-            android:theme="@style/ActionBar" />
-        <activity
-            android:name=".CreateProject"
-            android:parentActivityName=".Home"
-            android:theme="@style/ActionBar" />
-        <activity
-            android:name=".CreateUpdateNote"
-            android:parentActivityName=".Home"
-            android:theme="@style/ActionBar" />
-        <activity
-            android:name=".UpdateTask"
-            android:parentActivityName=".TaskList"
-            android:theme="@style/ActionBar" />
-        <activity
-            android:name=".TaskList"
-            android:parentActivityName=".Home"
-            android:theme="@style/ActionBar" />
-        <activity
             android:name=".AddNew"
             android:parentActivityName=".Home"
-            android:theme="@style/ActionBar" />
+            android:theme="@style/Theme.AppCompat.Light" />
+
         <activity
             android:name=".Home"
-            android:theme="@style/ActionBar" />
-        <activity
-            android:name=".MainActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light" />
+        <activity android:name=".MainActivity" />
+
         <activity
             android:name=".SplashScreen"
             android:theme="@style/SplashScreen">
@@ -75,6 +29,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>
