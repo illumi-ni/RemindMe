@@ -57,20 +57,6 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         NavigationView nav = findViewById(R.id.nav);
         View header = nav.getHeaderView(0);
 
-
-        Button btnCalendar = findViewById(R.id.btnCalendar);
-        btnCalendar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(Home.this, R.style.BottomSheetDialogTheme);
-                View bottomSheetView = LayoutInflater.from(getApplicationContext())
-                        .inflate(R.layout.layout_bottom_sheet_calendar, (LinearLayout) findViewById(R.id.bottomSheetContainer));
-                bottomSheetDialog.setContentView(bottomSheetView);
-                bottomSheetDialog.show();
-            }
-        });
-
-
         TabLayout tabLayout = findViewById(R.id.tabLayoutHome);
         final ViewPager viewPager = findViewById(R.id.viewPagerHome);
 
