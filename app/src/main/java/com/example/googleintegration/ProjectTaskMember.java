@@ -1,12 +1,9 @@
 package com.example.googleintegration;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import com.google.android.material.tabs.TabLayout;
 
 public class ProjectTaskMember extends AppCompatActivity {
 

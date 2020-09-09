@@ -47,6 +47,7 @@
         app:headerLayout="@layout/header"
         android:background="@color/colorBackground"
         app:itemTextColor="@color/colorTextPrimary"
+        app:itemIconTint="#d64161"
         app:menu="@menu/drawer_menu" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

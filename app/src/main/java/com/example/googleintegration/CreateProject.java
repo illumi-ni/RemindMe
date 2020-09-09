@@ -5,7 +5,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.DialogInterface;
@@ -45,7 +44,6 @@ public class CreateProject extends AppCompatActivity {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference taskRef = db.collection("project");
     private ProjectAdapter projectAdapter;
-    private String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -183,7 +181,7 @@ public class CreateProject extends AppCompatActivity {
             String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
 
             assert user != null;
-            userId = user.getUid();
+            String userId = user.getUid();
 
             Map<String, Object> project = new HashMap<>();
             project.put("Id", projectId);

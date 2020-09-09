@@ -7,12 +7,9 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,8 +27,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
@@ -41,7 +38,6 @@ import java.util.Objects;
 public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private GoogleSignInClient mGoogleSignInClient;
     private ActionBarDrawerToggle mToggle;
-    AlertDialog.Builder builder;
 
     int NightMode;
     SharedPreferences sharedPreferences;
@@ -109,12 +105,13 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                         & Configuration.UI_MODE_NIGHT_MASK;
                 if(currentNightMode == Configuration.UI_MODE_NIGHT_YES){
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    Snackbar.make(v, "Night mode off!", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
                 }
                 else{
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-//                    Snackbar.make(v, "Night mode on", Snackbar.LENGTH_LONG)
-//                            .setAction("Action", null).show();
-//                    Toast.makeText(getApplicationContext(), "Day Night Mode", Toast.LENGTH_SHORT).show();
+                    Snackbar.make(v, "Night mode on!", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
                 }
             }
         });
@@ -123,12 +120,6 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         if (acct != null) {
             Uri personPhoto = acct.getPhotoUrl();
             String personName = acct.getDisplayName();
-//            String personGivenName = acct.getGivenName();
-//            String personFamilyName = acct.getFamilyName();
-//            String personEmail = acct.getEmail();
-//            String personId = acct.getId();
-
-//            Toast.makeText(Home.this, "Welcome "+ personName, Toast.LENGTH_SHORT).show();
 
             ImageView img = header.findViewById(R.id.profilePhoto);
             Picasso.get().load(personPhoto).into(img);
@@ -152,12 +143,24 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         });
     }
 
+    private void revokeAccess() {
+        mGoogleSignInClient.revokeAccess()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Intent i = new Intent(Home.this, MainActivity.class);
+                        startActivity(i);
+                        finish();
+                    }
+                });
+    }
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
             case R.id.menu_upcoming:
-                Intent in = new Intent(this, TaskList.class);
-                this.startActivity(in);
+                Intent intent = new Intent(this, TaskList.class);
+                this.startActivity(intent);
                 break;
 
             case R.id.menu_completed:
@@ -166,22 +169,41 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 break;
 
             case R.id.menu_project:
-                Intent intent = new Intent(this, CreateProject.class);
-                this.startActivity(intent);
+                Intent intent2 = new Intent(this, CreateProject.class);
+                this.startActivity(intent2);
                 break;
 
-            case R.id.menu_settings:
-                //code
+            case R.id.menu_disconnect:
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+                builder1.setMessage("Are you sure you want to disconnect your google account from RemindMe?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                signOut();
+                                revokeAccess();
+                                finish();
+                                Toast.makeText(getApplicationContext(), "Logged out!",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alert1 = builder1.create();
+                alert1.setTitle("Revoke access?");
+                alert1.show();
                 break;
 
             case R.id.menu_logout:
-                builder = new AlertDialog.Builder(this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setMessage("Are you sure you want to logout?")
                         .setCancelable(false)
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                finish();
                                 signOut();
+                                finish();
                                 Toast.makeText(getApplicationContext(), "Logged out!",
                                         Toast.LENGTH_SHORT).show();
                             }

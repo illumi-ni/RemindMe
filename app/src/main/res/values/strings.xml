@@ -44,4 +44,7 @@
     <string name="last_modified">Last Modified:</string>
     <string name="task">Task</string>
     <string name="cancel">cancel</string>
+    <string name="all_tasks">All tasks</string>
+    <string name="tasks">Tasks</string>
+    <string name="disconnect">Disconnect</string>
 </resources>
