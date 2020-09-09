@@ -2,13 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
         <group android:id="@+id/menu_top"
         android:checkableBehavior="single">
-            <item android:id="@+id/header1"
-                android:title="@string/tasks">
-                <menu>
-                    <item android:id="@+id/menu_upcoming" android:title="@string/all_tasks" android:icon="@drawable/ic_upcoming"/>
-                    <item android:id="@+id/menu_completed" android:title="@string/completed" android:icon="@drawable/ic_achievement"/>
-                </menu>
-            </item>
+            <item android:id="@+id/menu_upcoming" android:title="@string/all_tasks" android:icon="@drawable/ic_upcoming"/>
+            <item android:id="@+id/menu_completed" android:title="@string/completed" android:icon="@drawable/ic_achievement"/>
         </group>
         <group android:id="@+id/menu_bottom"
             android:checkableBehavior="single">

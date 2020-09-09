@@ -7,17 +7,16 @@
     android:layout_height="220dp"
     android:background="@color/colorPrimary">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profilePhoto"
         android:layout_width="104dp"
         android:layout_height="95dp"
-        android:contentDescription="@string/imgUserProfile"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.188"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.328" />
+        app:layout_constraintVertical_bias="0.496" />
 
     <TextView
         android:id="@+id/userName"
