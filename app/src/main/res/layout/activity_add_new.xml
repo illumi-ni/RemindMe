@@ -1,114 +1,222 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:scrollbarAlwaysDrawHorizontalTrack="true"
     android:scrollbars="vertical"
-    tools:context=".AddNew">
+    android:background="@color/theme">
 
+        <TextView
+            android:id="@+id/lblTaskName"
+            android:layout_width="338dp"
+            android:layout_height="41dp"
+            android:textColor="@color/colorTextPrimary"
+            android:text="@string/what_is_to_be_done"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.438"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.071" />
 
-    <TextView
-        android:id="@+id/lblTaskName"
-        android:layout_width="338dp"
-        android:layout_height="41dp"
-        android:text="@string/what_is_to_be_done"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.088" />
+        <EditText
+            android:id="@+id/txtTaskName"
+            android:layout_width="342dp"
+            android:layout_height="47dp"
+            android:ems="10"
+            android:hint="@string/enter_task_here"
+            android:inputType="textPersonName"
+            app:errorEnabled="true"
+            android:textColorHint="@color/colorSubText"
+            android:textColor="@color/colorSubText"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.463"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lblTaskName"
+            app:layout_constraintVertical_bias="0.0"
+            android:importantForAutofill="no" />
 
+        <TextView
+            android:id="@+id/lbldate"
+            android:layout_width="224dp"
+            android:layout_height="34dp"
+            android:text="@string/due_date"
+            android:textSize="19sp"
+            android:textColor="@color/colorTextPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.181"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtTaskName"
+            app:layout_constraintVertical_bias="0.056" />
 
-    <EditText
-        android:id="@+id/txtTaskName"
-        android:layout_width="338dp"
-        android:layout_height="49dp"
-        android:ems="10"
-        android:hint="@string/enter_task_here"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lblTaskName"
-        app:layout_constraintVertical_bias="0.0" />
+        <EditText
+            android:id="@+id/in_date"
+            android:layout_width="200dp"
+            android:layout_height="41dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:autofillHints=""
+            app:errorEnabled="true"
+            android:editable="false"
+            android:hint="@string/date"
+            android:textColorHint="@color/colorSubText"
+            android:textColor="@color/colorSubText"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.151"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lbldate"
+            app:layout_constraintVertical_bias="0.0"
+            android:inputType="date" />
 
-    <EditText
-        android:id="@+id/in_date"
-        android:layout_width="200dp"
-        android:layout_height="41dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:autofillHints=""
-        android:editable="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.17"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtTaskName"
-        app:layout_constraintVertical_bias="0.075" />
+        <TextView
+            android:id="@+id/lbltime"
+            android:layout_width="224dp"
+            android:layout_height="34dp"
+            android:text="@string/time"
+            android:textSize="19sp"
+            android:textColor="@color/colorTextPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.171"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/in_date"
+            app:layout_constraintVertical_bias="0.065" />
 
-    <EditText
-        android:id="@+id/in_time"
-        android:layout_width="200dp"
-        android:layout_height="41dp"
-        android:layout_below="@+id/in_date"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:autofillHints=""
-        android:editable="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.17"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/in_date"
-        app:layout_constraintVertical_bias="0.088" />
+        <EditText
+            android:id="@+id/in_time"
+            android:layout_width="200dp"
+            android:layout_height="41dp"
+            android:layout_below="@+id/in_date"
+            android:layout_alignParentStart="true"
+            android:autofillHints=""
+            app:errorEnabled="true"
+            android:hint="@string/time"
+            android:editable="false"
+            android:textColorHint="@color/colorSubText"
+            android:textColor="@color/colorSubText"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.161"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lbltime"
+            app:layout_constraintVertical_bias="0.0"
+            android:inputType="time"/>
 
-    <Button
-        android:id="@+id/btn_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btn_date"
-        android:layout_alignStart="@+id/btn_date"
-        android:text="@string/select_time"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.87"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_date"
-        app:layout_constraintVertical_bias="0.071" />
+        <TextView
+            android:id="@+id/lblspinner"
+            android:layout_width="224dp"
+            android:layout_height="34dp"
+            android:text="@string/repeat"
+            android:textSize="19sp"
+            android:textColor="@color/colorTextPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.181"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/in_time"
+            app:layout_constraintVertical_bias="0.094" />
 
-    <Button
-        android:id="@+id/btn_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/in_date"
-        android:layout_toEndOf="@+id/in_date"
-        android:layout_toRightOf="@+id/in_date"
-        android:text="@string/select_date"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.876"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtTaskName"
-        app:layout_constraintVertical_bias="0.076" />
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="344dp"
+            android:layout_height="33dp"
+            android:layout_marginStart="33dp"
+            android:layout_marginEnd="34dp"
+            app:errorEnabled="true"
+            android:textColor="@color/colorSubText"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lblspinner"
+            app:layout_constraintVertical_bias="0.0" />
 
-    <Button
-        android:id="@+id/btn_save"
-        android:layout_width="108dp"
-        android:layout_height="53dp"
-        android:backgroundTint="#C56AAB"
-        android:text="Save"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.161"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/in_time"
-        app:layout_constraintVertical_bias="0.703" />
+        <TextView
+            android:id="@+id/lbldesc"
+            android:layout_width="224dp"
+            android:layout_height="34dp"
+            android:text="@string/desc"
+            android:textSize="19sp"
+            android:textColor="@color/colorTextPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.171"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinner"
+            app:layout_constraintVertical_bias="0.141" />
 
+        <EditText
+            android:id="@+id/txtdesc"
+            android:layout_width="346dp"
+            android:layout_height="49dp"
+            android:ems="10"
+            android:inputType="textMultiLine"
+            android:textSize="17sp"
+            app:errorEnabled="true"
+            android:hint="@string/description"
+            android:textColorHint="@color/colorSubText"
+            android:textColor="@color/colorSubText"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lbldesc"
+            app:layout_constraintVertical_bias="0.0"
+            android:importantForAutofill="no" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/btn_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btn_date"
+            android:layout_alignStart="@+id/btn_date"
+            android:text="@string/select_time"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.874"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_date"
+            app:layout_constraintVertical_bias="0.101" />
+
+        <Button
+            android:id="@+id/btn_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/in_date"
+            android:layout_toEndOf="@+id/in_date"
+            android:text="@string/select_date"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.876"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtTaskName"
+            app:layout_constraintVertical_bias="0.076" />
+
+        <Button
+            android:id="@+id/btn_save"
+            android:layout_width="108dp"
+            android:layout_height="53dp"
+            android:backgroundTint="@color/colorButton"
+            android:text="@string/save"
+            android:textColor="@color/colorTextSecondary"
+            android:textColorHint="@color/colorTextSecondary"
+            android:layout_gravity="bottom|end"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.947"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtdesc"
+            app:layout_constraintVertical_bias="0.483" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

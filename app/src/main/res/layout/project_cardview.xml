@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    android:id="@+id/project_card_view">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackground"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="2dp"
+            android:contentDescription="@string/app_name"
+            android:padding="2dp"
+            android:src="@drawable/ic_project" />
+
+        <TextView
+            android:id="@+id/textProjectTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:gravity="center"
+            android:layout_toEndOf="@id/imageView"
+            android:maxLines="1"
+            android:text="@string/project"
+            android:textColor="@color/colorTextPrimary"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            tools:ignore="RelativeOverlap" />
+
+        <TextView
+            android:id="@+id/dateCreated"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textProjectTitle"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="5dp"
+            android:layout_toEndOf="@id/imageView"
+            android:text="@string/date"
+            android:textColor="@color/colorSubText"
+            android:textSize="15sp"
+            android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/deleteProject"
+            android:layout_width="45dp"
+            android:layout_height="40dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="2dp"
+            android:contentDescription="@string/delete_icon"
+            android:src="@drawable/ic_delete" />
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
